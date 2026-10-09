@@ -11,11 +11,14 @@ config_version=5
 [application]
 
 config/name="Our Little Towne"
+run/main_scene="uid://c3ah68aa01234"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
 
 [display]
 
+window/size/viewport_width=1080
+window/size/viewport_height=2340
 window/handheld/orientation=1
 
 [physics]
