@@ -65,20 +65,19 @@ func update_lobby_display():
 	var connected = network_manager.connected_players
 	
 	for i in range(1, max_players + 1):
+		var slot_node = get_node("LobbyContainer/PlayerList/PlayerSlot" + str(i))
 		var player_name_label = get_node("LobbyContainer/PlayerList/PlayerSlot" + str(i) + "/PlayerInfo" + str(i) + "/PlayerName" + str(i))
 		var player_status_label = get_node("LobbyContainer/PlayerList/PlayerSlot" + str(i) + "/PlayerInfo" + str(i) + "/PlayerStatus" + str(i))
 		
 		if i <= connected.size():
 			var player = connected[i-1]
+			slot_node.visible = true
 			if player_name_label:
 				player_name_label.text = player.data.name
 			if player_status_label:
 				player_status_label.text = "Ready" if player.data.ready else "Not Ready"
 		else:
-			if player_name_label:
-				player_name_label.text = "Empty Slot"
-			if player_status_label:
-				player_status_label.text = "Waiting"
+			slot_node.visible = false
 
 func set_my_ready(is_ready):
 	network_manager.set_player_ready(my_player_id, is_ready)

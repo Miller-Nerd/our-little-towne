@@ -73,6 +73,12 @@ modulate = Color(1, 1, 1, 0.7)
 layout_mode = 2
 text = "Create Character"
 
+[node name="PlayButton" type="Button" parent="CharacterList/CharacterSlot1" unique_id=2042393560]
+visible = false
+modulate = Color(0.2, 0.8, 0.2, 1)
+layout_mode = 2
+text = "Play"
+
 [node name="CharacterSlot2" type="HBoxContainer" parent="CharacterList" unique_id=1716454993]
 layout_mode = 2
 size_flags_horizontal = 2
@@ -109,6 +115,12 @@ vertical_alignment = 1
 modulate = Color(1, 1, 1, 0.7)
 layout_mode = 2
 text = "Create Character"
+
+[node name="PlayButton" type="Button" parent="CharacterList/CharacterSlot2" unique_id=854117824]
+visible = false
+modulate = Color(0.2, 0.8, 0.2, 1)
+layout_mode = 2
+text = "Play"
 
 [node name="CharacterSlot3" type="HBoxContainer" parent="CharacterList" unique_id=1479283367]
 layout_mode = 2
@@ -147,6 +159,12 @@ modulate = Color(1, 1, 1, 0.7)
 layout_mode = 2
 text = "Create Character"
 
+[node name="PlayButton" type="Button" parent="CharacterList/CharacterSlot3" unique_id=636412860]
+visible = false
+modulate = Color(0.2, 0.8, 0.2, 1)
+layout_mode = 2
+text = "Play"
+
 [node name="CharacterSlot4" type="HBoxContainer" parent="CharacterList" unique_id=1652602644]
 layout_mode = 2
 size_flags_horizontal = 2
@@ -184,6 +202,12 @@ modulate = Color(1, 1, 1, 0.7)
 layout_mode = 2
 text = "Create Character"
 
+[node name="PlayButton" type="Button" parent="CharacterList/CharacterSlot4" unique_id=2141546884]
+visible = false
+modulate = Color(0.2, 0.8, 0.2, 1)
+layout_mode = 2
+text = "Play"
+
 [node name="CharacterSlot5" type="HBoxContainer" parent="CharacterList" unique_id=310376313]
 layout_mode = 2
 size_flags_horizontal = 2
@@ -220,6 +244,12 @@ vertical_alignment = 1
 modulate = Color(1, 1, 1, 0.7)
 layout_mode = 2
 text = "Create Character"
+
+[node name="PlayButton" type="Button" parent="CharacterList/CharacterSlot5" unique_id=1377557788]
+visible = false
+modulate = Color(0.2, 0.8, 0.2, 1)
+layout_mode = 2
+text = "Play"
 
 [node name="BackButton" type="Button" parent="." unique_id=1963383357]
 layout_mode = 0

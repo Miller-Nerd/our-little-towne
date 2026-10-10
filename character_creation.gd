@@ -144,7 +144,29 @@ func _on_create_button_pressed():
 	# Store the character data in the scene meta so it can be retrieved by character_select
 	get_tree().set_meta("created_character_data", params)
 	
+	# Save character data to local storage
+	save_character_to_local_storage(slot_number, params)
+	
 	get_tree().change_scene_to_file("res://character_select.tscn")
+
+func save_character_to_local_storage(slot_num, character_data):
+	# Use the project's save directory for storing character data
+	var save_dir = "user://save_data"
+	
+	# Create the directory if it doesn't exist
+	if not DirAccess.dir_exists_absolute(save_dir):
+		DirAccess.make_dir_recursive_absolute(save_dir)
+	
+	# Save the character data to a file named after the slot
+	var file_path = save_dir + "/character_slot_" + str(slot_num) + ".json"
+	
+	# Convert to JSON and save
+	var file = FileAccess.open(file_path, FileAccess.WRITE)
+	if file != null:
+		var json_string = JSON.stringify(character_data)
+		file.store_string(json_string)
+		file.close()
+		print("Saved character data for slot " + str(slot_num))
 
 func _on_gender_left_pressed():
 	character_appearance.gender -= 1

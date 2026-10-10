@@ -11,9 +11,9 @@ func _ready():
 	get_tree().root.add_child.call_deferred(network_manager)
 	
 	# Connect button signals
-	var play_button = $PlayButton
-	if play_button:
-		play_button.connect("pressed", Callable(self, "_on_host_pressed"))
+	var host_button = $HostButton
+	if host_button:
+		host_button.connect("pressed", Callable(self, "_on_host_pressed"))
 	
 	var join_button = $JoinButton
 	if join_button:
@@ -21,11 +21,12 @@ func _ready():
 
 func _on_host_pressed():
 	print("Host game pressed!")
-	# Start server and go to character selection
-	network_manager.start_server(7000)
+	# Set flag indicating this is a host flow, then go to character select
+	get_tree().set_meta("host_mode", true)
 	get_tree().change_scene_to_file("res://character_select.tscn")
 
 func _on_join_pressed():
 	print("Join game pressed!")
-	# Go directly to connection attempt scene
-	get_tree().change_scene_to_file("res://connection_attempt.tscn")
+	# Set flag indicating this is a join flow, then go to character select
+	get_tree().set_meta("host_mode", false)
+	get_tree().change_scene_to_file("res://character_select.tscn")
