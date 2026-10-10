@@ -227,12 +227,17 @@ offset_top = 0.0
 offset_right = 0.0
 offset_bottom = 0.0
 
+[node name="ReadyButton" type="Button" parent="LobbyContainer/ButtonRow" unique_id=2000000004]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "I am Ready!"
+
 [node name="StartGameButton" type="Button" parent="LobbyContainer/ButtonRow" unique_id=1377557787]
 layout_mode = 2
 size_flags_horizontal = 2
 text = "Start Game"
 
-[node name="LeaveLobbyButton" type="Button" parent="LobbyContainer/ButtonRow" unique_id=2000000002]
+[node name="LeaveLobbyButton" type="Button" parent="LobbyContainer/ButtonRow" unique_id=2000000005]
 layout_mode = 2
 size_flags_horizontal = 2
 text = "Leave Lobby"

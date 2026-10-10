@@ -5,6 +5,7 @@ var max_players = 8
 var network_manager = null
 var NetworkManager = preload("res://network_manager.gd")
 var my_player_id = -1
+var is_ready = false
 
 func _ready():
 	# Initialize network manager as singleton
@@ -33,6 +34,11 @@ func _ready():
 	if leave_button:
 		leave_button.connect("pressed", Callable(self, "_on_leave_lobby_pressed"))
 	
+	# Connect the ready button
+	var ready_button = get_node("LobbyContainer/ButtonRow/ReadyButton")
+	if ready_button:
+		ready_button.connect("pressed", Callable(self, "_on_ready_button_pressed"))
+	
 	# Connect the confirmation dialog
 	var confirm_dialog = get_node("LeaveConfirmDialog")
 	if confirm_dialog:
@@ -54,6 +60,19 @@ func _on_start_game_pressed():
 		network_manager.request_game_start()
 	else:
 		network_manager.rpc_id(1, "request_game_start")
+
+func _on_ready_button_pressed():
+	var ready_button = get_node("LobbyContainer/ButtonRow/ReadyButton")
+	is_ready = !is_ready
+	
+	if is_ready:
+		set_my_ready(true)
+		ready_button.text = "I'm Not Ready!"
+		ready_button.add_theme_color_override("normal_bg_color", Color(1, 0.3, 0.3))
+	else:
+		set_my_ready(false)
+		ready_button.text = "I am Ready!"
+		ready_button.add_theme_color_override("normal_bg_color", Color(0.3, 1, 0.3))
 
 func _on_player_joined(player_id, player_data):
 	print("Player joined lobby: " + str(player_id))
