@@ -51,7 +51,7 @@ func start_connection():
 		get_tree().set_meta("network_manager", network_manager)
 		
 		# Get character data that was passed from character selection
-		var character_data = get_tree().get_meta("character_data", null)
+		character_data = get_tree().get_meta("character_data", null)
 		if character_data != null:
 			print("Got character data back: ", character_data)
 			get_tree().set_meta("player_character_data", character_data)

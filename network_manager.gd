@@ -65,6 +65,9 @@ func connect_to_server(ip_address, port=7000, player_data=null):
 	my_player_id = multiplayer.get_unique_id()
 	print("Connected with player ID: " + str(my_player_id))
 	
+	# Wait briefly for Godot's internal peer registration to complete
+	await get_tree().create_timer(1.0).timeout
+	
 	# Send join request to server with actual character data
 	if player_data == null:
 		player_data = {"name": "Player" + str(my_player_id), "ready": false}
@@ -76,7 +79,10 @@ func _on_peer_connected(id):
 	print("Client connected: " + str(id))
 	# Send current lobby state to the new joiner so they see existing players
 	if is_server and id != 1:
-		rpc_id(id, "sync_lobby_state", connected_players)
+		call_deferred("_sync_lobby_with_new_player", id)
+
+func _sync_lobby_with_new_player(peer_id):
+	rpc_id(peer_id, "sync_lobby_state", connected_players)
 
 func _on_peer_disconnected(id):
 	print("Client disconnected: " + str(id))
