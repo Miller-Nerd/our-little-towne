@@ -1,14 +1,7 @@
 extends Control
 
-var network_manager = null
-var NetworkManager = preload("res://network_manager.gd")
-
 func _ready():
 	print("Minimal main menu loaded")
-	
-	# Initialize network manager as singleton
-	network_manager = NetworkManager.new()
-	get_tree().root.add_child.call_deferred(network_manager)
 	
 	# Connect button signals
 	var host_button = $HostButton
@@ -21,8 +14,12 @@ func _ready():
 
 func _on_host_pressed():
 	print("Host game pressed!")
-	# Set flag indicating this is a host flow, then go to character select
 	get_tree().set_meta("host_mode", true)
+	get_tree().change_scene_to_file("res://character_select.tscn")
+
+func _on_join_pressed():
+	print("Join game pressed!")
+	get_tree().set_meta("host_mode", false)
 	get_tree().change_scene_to_file("res://character_select.tscn")
 
 func _on_join_pressed():

@@ -1,6 +1,5 @@
 extends Control
 
-var NetworkManager = preload("res://network_manager.gd")
 var lobby_name = ""
 var port = 7000
 var timer = null
@@ -74,22 +73,8 @@ func _on_timer_timeout():
 		timer.start()
 
 func _on_host_complete():
-	# Set up network manager for hosting
-	var network_manager = NetworkManager.new()
-	get_tree().root.add_child(network_manager)
-	
-	# Start the server with the specified port
-	network_manager.start_server(port)
-	
-	# Pass network manager to next scene via meta
-	get_tree().set_meta("network_manager", network_manager)
-	
-	# Change to lobby scene
-	var result = get_tree().change_scene_to_file("res://lobby.tscn")
-	if result != OK:
-		print("Failed to change to lobby scene: ", result)
-	else:
-		print("Navigated to lobby scene")
+	NetworkManager.start_server(port)
+	get_tree().change_scene_to_file("res://lobby.tscn")
 
 func _on_cancel_pressed():
 	# Return to main menu

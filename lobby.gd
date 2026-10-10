@@ -2,20 +2,13 @@ extends Control
 
 # Lobby system for up to 8 players using ENet multiplayer
 var max_players = 8
-var network_manager = null
-var NetworkManager = preload("res://network_manager.gd")
 var my_player_id = -1
 var is_ready = false
 var character_name = ""
 
 func _ready():
-	# Get network manager from previous scene (created in connection_attempt or host_launch)
-	network_manager = get_tree().get_meta("network_manager", null)
-	if network_manager == null:
-		print("ERROR: Network manager not found!")
-		return
-	
-	my_player_id = network_manager.my_player_id
+	# Network manager is now an autoload singleton, no need to retrieve from meta
+	my_player_id = NetworkManager.my_player_id
 	print("Lobby player ID: " + str(my_player_id))
 	
 	# Get character name from scene meta or use default
@@ -27,10 +20,10 @@ func _ready():
 	print("Character name in lobby: " + character_name)
 	
 	# Connect to network signals
-	network_manager.connect("player_joined", Callable(self, "_on_player_joined"))
-	network_manager.connect("player_left", Callable(self, "_on_player_left"))
-	network_manager.connect("player_ready_changed", Callable(self, "_on_player_ready_changed"))
-	network_manager.connect("game_start_requested", Callable(self, "_on_game_start_requested"))
+	NetworkManager.connect("player_joined", Callable(self, "_on_player_joined"))
+	NetworkManager.connect("player_left", Callable(self, "_on_player_left"))
+	NetworkManager.connect("player_ready_changed", Callable(self, "_on_player_ready_changed"))
+	NetworkManager.connect("game_start_requested", Callable(self, "_on_game_start_requested"))
 	
 	# Initialize lobby display with empty slots
 	update_lobby_display()
@@ -58,14 +51,14 @@ func _ready():
 		confirm_dialog.connect("confirmed", Callable(self, "_on_confirm_leave"))
 	
 	# Join lobby with character name
-	network_manager.add_player_to_lobby(my_player_id, {"name": character_name, "ready": false})
+	NetworkManager.add_player_to_lobby(my_player_id, {"name": character_name, "ready": false})
 
 func _on_start_game_pressed():
 	print("Starting game")
-	if network_manager.is_server:
-		network_manager.request_game_start()
+	if NetworkManager.is_server:
+		NetworkManager.request_game_start()
 	else:
-		network_manager.rpc_id(1, "request_game_start")
+		NetworkManager.rpc_id(1, "request_game_start")
 
 func _on_ready_button_pressed():
 	var ready_button = get_node("LobbyContainer/ButtonRow/ReadyButton")
@@ -100,7 +93,7 @@ func _on_game_start_requested():
 
 func update_lobby_display():
 	# Update the UI to show current players from network manager
-	var connected = network_manager.connected_players
+	var connected = NetworkManager.connected_players
 	
 	for i in range(1, max_players + 1):
 		var slot_node = get_node("LobbyContainer/PlayerList/PlayerSlot" + str(i))
@@ -118,7 +111,7 @@ func update_lobby_display():
 			slot_node.visible = false
 
 func set_my_ready(is_ready):
-	network_manager.set_player_ready(my_player_id, is_ready)
+	NetworkManager.set_player_ready(my_player_id, is_ready)
 
 func _on_leave_lobby_pressed():
 	var confirm_dialog = get_node("LeaveConfirmDialog")
@@ -129,11 +122,11 @@ func _on_confirm_leave():
 	print("Leaving lobby...")
 	
 	# Remove self from lobby if server knows about us
-	if network_manager.has_player_in_lobby(my_player_id):
-		network_manager.remove_player_from_lobby(my_player_id)
+	if NetworkManager.has_player_in_lobby(my_player_id):
+		NetworkManager.remove_player_from_lobby(my_player_id)
 	
 	# Clean up network connection
-	network_manager.cleanup()
+	NetworkManager.cleanup()
 	
 	# Return to main menu
 	get_tree().change_scene_to_file("res://main_menu.tscn")

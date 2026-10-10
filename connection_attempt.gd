@@ -1,29 +1,20 @@
 extends Control
 
-var network_manager = null
-var NetworkManager = preload("res://network_manager.gd")
 var target_ip = "127.0.0.1"
 var target_port = 7000
 
 func _ready():
 	print("Connection attempt scene loaded")
 	
-	# Get server info from previous scene
 	var server_info = get_tree().get_meta("server_info", null)
 	if server_info != null:
 		target_ip = server_info.ip
 		target_port = server_info.port
 	
-	# Initialize network manager
-	network_manager = NetworkManager.new()
-	get_tree().root.add_child(network_manager)
-	
-	# Connect cancel button
 	var cancel_button = $CancelButton
 	if cancel_button:
 		cancel_button.connect("pressed", Callable(self, "_on_cancel_pressed"))
 	
-	# Start actual connection process
 	start_connection()
 
 func start_connection():
@@ -40,7 +31,7 @@ func start_connection():
 	if character_data != null:
 		player_info.name = character_data.name
 	
-	var success = await network_manager.connect_to_server(target_ip, target_port, player_info)
+	var success = await NetworkManager.connect_to_server(target_ip, target_port, player_info)
 	
 	if success:
 		print("Connection successful!")
@@ -48,9 +39,6 @@ func start_connection():
 		await get_tree().create_timer(1.0).timeout
 		
 		# Pass network manager to next scene via meta
-		get_tree().set_meta("network_manager", network_manager)
-		
-		# Get character data that was passed from character selection
 		character_data = get_tree().get_meta("character_data", null)
 		if character_data != null:
 			print("Got character data back: ", character_data)
@@ -96,5 +84,5 @@ func _on_error_ok_pressed():
 
 func _on_cancel_pressed():
 	print("Connection cancelled by user")
-	network_manager.cleanup()
+	NetworkManager.cleanup()
 	get_tree().change_scene_to_file("res://main_menu.tscn")

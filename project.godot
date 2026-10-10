@@ -8,6 +8,10 @@
 
 config_version=5
 
+[autoload]
+
+NetworkManager="res://network_manager.gd"
+
 [application]
 
 config/name="Our Little Towne"
