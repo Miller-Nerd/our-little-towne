@@ -19,11 +19,6 @@ func _on_host_pressed():
 
 func _on_join_pressed():
 	print("Join game pressed!")
-	get_tree().set_meta("host_mode", false)
-	get_tree().change_scene_to_file("res://character_select.tscn")
-
-func _on_join_pressed():
-	print("Join game pressed!")
 	# Set flag indicating this is a join flow, then go to character select
 	get_tree().set_meta("host_mode", false)
 	get_tree().change_scene_to_file("res://character_select.tscn")
