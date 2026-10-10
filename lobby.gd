@@ -17,10 +17,19 @@ func _ready():
 	
 	# Get character name from scene meta or use default
 	var char_data = get_tree().get_meta("character_data", null)
+	print("Character data in lobby:", char_data)
 	if char_data != null and char_data.name != "":
 		character_name = char_data.name
+		print("Using character name from meta: " + character_name)
 	else:
-		character_name = "Player" + str(my_player_id)
+		# Try to get character name from network manager if available (for host case)
+		var player_data = network_manager.get_player_data(my_player_id)
+		if player_data != null and player_data.name != "":
+			character_name = player_data.name
+			print("Using character name from network manager: " + character_name)
+		else:
+			character_name = "Player" + str(my_player_id)
+			print("Using default player name: " + character_name)
 	print("Character name in lobby: " + character_name)
 	
 	# Connect to network signals

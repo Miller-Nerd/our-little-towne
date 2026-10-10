@@ -75,6 +75,14 @@ func _on_timer_timeout():
 func _on_host_complete():
 	var network_manager = get_node("/root/NetworkManager")
 	network_manager.start_server(port)
+	
+	# Pass character data to lobby scene for host player
+	var char_data = get_tree().get_meta("character_data", null)
+	print("Character data in lobby_launch_attempt: ", char_data)
+	if char_data != null:
+		get_tree().set_meta("character_data", char_data)
+		print("Set character data in meta for lobby")
+	
 	get_tree().change_scene_to_file("res://lobby.tscn")
 
 func _on_cancel_pressed():

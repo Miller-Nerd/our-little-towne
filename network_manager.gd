@@ -34,9 +34,6 @@ func start_server(port=7000):
 	multiplayer.multiplayer_peer = peer
 	my_player_id = 1
 	
-	# Add self as first player in lobby (local only for host)
-	add_player_to_lobby(my_player_id, {"name": "Host", "ready": false})
-	
 	print("Server started successfully")
 	return true
 
