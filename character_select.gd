@@ -76,6 +76,11 @@ func update_character_slots():
 				if not create_button.is_connected("pressed", Callable(self, "_on_create_character_pressed").bind(i)):
 					create_button.connect("pressed", Callable(self, "_on_create_character_pressed").bind(i))
 					print("Connected create button for slot " + str(i))
+			
+			# Hide play button if it exists
+			var play_button = slot.get_node_or_null("PlayButton" + str(i))
+			if play_button:
+				play_button.visible = false
 		else:
 			print("Slot " + str(i) + ": Has character data - showing class/level labels")
 			# We have character data - show class/level labels with proper formatting
@@ -87,6 +92,24 @@ func update_character_slots():
 			# Hide create button when there's character data
 			if create_button:
 				create_button.visible = false
+			
+			# Show green play button for slots with character data
+			var play_button = slot.get_node_or_null("PlayButton" + str(i))
+			if not play_button:
+				# Create the play button dynamically if it doesn't exist
+				play_button = Button.new()
+				play_button.name = "PlayButton" + str(i)
+				play_button.text = "▶ Play"
+				play_button.modulate = Color(0.2, 0.8, 0.2, 1.0)  # Green color
+				slot.add_child(play_button)
+				# Position it on the right side of the slot
+				play_button.position = Vector2(slot.size.x - 100, slot.size.y / 2 - 25)
+				play_button.connect("pressed", Callable(self, "_on_select_character_pressed").bind(i))
+			else:
+				# Button already exists, just make sure it's connected
+				if not play_button.is_connected("pressed", Callable(self, "_on_select_character_pressed").bind(i)):
+					play_button.connect("pressed", Callable(self, "_on_select_character_pressed").bind(i))
+			play_button.visible = true
 
 func _on_back_button_pressed():
 	print("Back button pressed - changing scene")
@@ -108,9 +131,6 @@ func _on_create_character_pressed(slot_number):
 
 func _on_select_character_pressed(slot_number):
 	print("Select character button pressed for slot " + str(slot_number))
-	# In a real implementation, we would save the selected character data
-	# For now, just go to connection attempt scene
-	print("Character from slot " + str(slot_number) + " selected")
 	
 	# Get character data for this slot
 	var char_data = characters[slot_number - 1]
@@ -119,6 +139,8 @@ func _on_select_character_pressed(slot_number):
 		_on_create_character_pressed(slot_number)
 	else:
 		print("Got character data: ", char_data)
-		# Pass character data to connection attempt scene
+		# Pass character data to next scene
 		get_tree().set_meta("character_data", char_data)
-		get_tree().change_scene_to_file("res://connection_attempt.tscn")
+		
+		# Navigate to server selection scene (IP entry / server browser)
+		get_tree().change_scene_to_file("res://server_select.tscn")

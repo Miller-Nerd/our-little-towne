@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b288ft7kmnska"]
 
-[ext_resource type="Script" uid="uid://drl28u8vvo8ck" path="res://character_creation.gd" id="1"]
+[ext_resource type="Script" uid="uid://cogrv3jmeiglb" path="res://character_creation.gd" id="1"]
+[ext_resource type="LabelSettings" uid="uid://cgi1vydqjrur2" path="res://new_label_settings.tres" id="2_855gl"]
 
 [node name="CharacterCreation" type="Control" unique_id=1803447360]
 layout_mode = 3
@@ -22,6 +23,7 @@ offset_left = 7.9599915
 offset_top = 2.339981
 offset_right = -0.4000244
 text = "Create Character"
+label_settings = ExtResource("2_855gl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -34,15 +36,13 @@ anchor_bottom = 0.35
 size_flags_horizontal = 2
 
 [node name="NameLabel" type="Label" parent="CharacterNameContainer" unique_id=1930696198]
-layout_mode = 0
+layout_mode = 2
 text = "Name:"
 
-[node name="NameInput" type="LineEdit" parent="CharacterNameContainer" unique_id=1930696198]
-layout_mode = 0
-anchor_left = 0.25
-anchor_right = 1.0
+[node name="NameInput" type="LineEdit" parent="CharacterNameContainer" unique_id=1949176710]
+layout_mode = 2
 
-[node name="CharacterClassContainer" type="HBoxContainer" parent="." unique_id=1877568242]
+[node name="CharacterClassContainer" type="HBoxContainer" parent="." unique_id=278206955]
 layout_mode = 0
 anchor_left = 0.2
 anchor_top = 0.35
@@ -50,18 +50,14 @@ anchor_right = 0.8
 anchor_bottom = 0.4
 size_flags_horizontal = 2
 
-[node name="ClassLabel" type="Label" parent="CharacterClassContainer" unique_id=1930696198]
-layout_mode = 0
+[node name="ClassLabel" type="Label" parent="CharacterClassContainer" unique_id=1756642619]
+layout_mode = 2
 text = "Class:"
 
-[node name="ClassDropdown" type="OptionButton" parent="CharacterClassContainer" unique_id=1930696198]
-layout_mode = 0
-anchor_left = 0.25
-anchor_right = 1.0
-text = "Select Class"
-items = ["Mage", "Warrior", "Paladin", "Rogue"]
+[node name="ClassDropdown" type="OptionButton" parent="CharacterClassContainer" unique_id=1582702100]
+layout_mode = 2
 
-[node name="GenderContainer" type="HBoxContainer" parent="." unique_id=1877568242]
+[node name="GenderContainer" type="HBoxContainer" parent="." unique_id=20251324]
 layout_mode = 0
 anchor_left = 0.2
 anchor_top = 0.4
@@ -69,29 +65,23 @@ anchor_right = 0.8
 anchor_bottom = 0.45
 size_flags_horizontal = 2
 
-[node name="GenderLabel" type="Label" parent="GenderContainer" unique_id=1930696198]
-layout_mode = 0
+[node name="GenderLabel" type="Label" parent="GenderContainer" unique_id=1599734793]
+layout_mode = 2
 text = "Gender:"
 
-[node name="GenderLeftButton" type="Button" parent="GenderContainer" unique_id=1930696198]
-layout_mode = 0
-anchor_left = 0.25
-anchor_right = 0.4
+[node name="GenderLeftButton" type="Button" parent="GenderContainer" unique_id=2045654637]
+layout_mode = 2
 text = "<"
 
-[node name="GenderValueLabel" type="Label" parent="GenderContainer" unique_id=1930696198]
-layout_mode = 0
-anchor_left = 0.4
-anchor_right = 0.6
+[node name="GenderValueLabel" type="Label" parent="GenderContainer" unique_id=1697618232]
+layout_mode = 2
 text = "1"
 
-[node name="GenderRightButton" type="Button" parent="GenderContainer" unique_id=1930696198]
-layout_mode = 0
-anchor_left = 0.6
-anchor_right = 0.75
+[node name="GenderRightButton" type="Button" parent="GenderContainer" unique_id=1309960530]
+layout_mode = 2
 text = ">"
 
-[node name="HairStyleContainer" type="HBoxContainer" parent="." unique_id=1877568242]
+[node name="HairStyleContainer" type="HBoxContainer" parent="." unique_id=811902809]
 layout_mode = 0
 anchor_left = 0.2
 anchor_top = 0.45
@@ -99,29 +89,23 @@ anchor_right = 0.8
 anchor_bottom = 0.5
 size_flags_horizontal = 2
 
-[node name="HairStyleLabel" type="Label" parent="HairStyleContainer" unique_id=1930696198]
-layout_mode = 0
+[node name="HairStyleLabel" type="Label" parent="HairStyleContainer" unique_id=993263926]
+layout_mode = 2
 text = "Hair Style:"
 
-[node name="HairStyleLeftButton" type="Button" parent="HairStyleContainer" unique_id=1930696198]
-layout_mode = 0
-anchor_left = 0.25
-anchor_right = 0.4
+[node name="HairStyleLeftButton" type="Button" parent="HairStyleContainer" unique_id=1799431370]
+layout_mode = 2
 text = "<"
 
-[node name="HairStyleValueLabel" type="Label" parent="HairStyleContainer" unique_id=1930696198]
-layout_mode = 0
-anchor_left = 0.4
-anchor_right = 0.6
+[node name="HairStyleValueLabel" type="Label" parent="HairStyleContainer" unique_id=2084624235]
+layout_mode = 2
 text = "1"
 
-[node name="HairStyleRightButton" type="Button" parent="HairStyleContainer" unique_id=1930696198]
-layout_mode = 0
-anchor_left = 0.6
-anchor_right = 0.75
+[node name="HairStyleRightButton" type="Button" parent="HairStyleContainer" unique_id=133382481]
+layout_mode = 2
 text = ">"
 
-[node name="HairColorContainer" type="HBoxContainer" parent="." unique_id=1930696198]
+[node name="HairColorContainer" type="HBoxContainer" parent="." unique_id=1825813784]
 layout_mode = 0
 anchor_left = 0.2
 anchor_top = 0.5
@@ -129,29 +113,23 @@ anchor_right = 0.8
 anchor_bottom = 0.55
 size_flags_horizontal = 2
 
-[node name="HairColorLabel" type="Label" parent="HairColorContainer" unique_id=1930696198]
-layout_mode = 0
+[node name="HairColorLabel" type="Label" parent="HairColorContainer" unique_id=2137837145]
+layout_mode = 2
 text = "Hair Color:"
 
-[node name="HairColorLeftButton" type="Button" parent="HairColorContainer" unique_id=1930696198]
-layout_mode = 0
-anchor_left = 0.25
-anchor_right = 0.4
+[node name="HairColorLeftButton" type="Button" parent="HairColorContainer" unique_id=1917166442]
+layout_mode = 2
 text = "<"
 
-[node name="HairColorValueLabel" type="Label" parent="HairColorContainer" unique_id=1930696198]
-layout_mode = 0
-anchor_left = 0.4
-anchor_right = 0.6
+[node name="HairColorValueLabel" type="Label" parent="HairColorContainer" unique_id=1531322282]
+layout_mode = 2
 text = "1"
 
-[node name="HairColorRightButton" type="Button" parent="HairColorContainer" unique_id=1930696198]
-layout_mode = 0
-anchor_left = 0.6
-anchor_right = 0.75
+[node name="HairColorRightButton" type="Button" parent="HairColorContainer" unique_id=1332730003]
+layout_mode = 2
 text = ">"
 
-[node name="EyeShapeContainer" type="HBoxContainer" parent="." unique_id=1930696198]
+[node name="EyeShapeContainer" type="HBoxContainer" parent="." unique_id=1818222590]
 layout_mode = 0
 anchor_left = 0.2
 anchor_top = 0.55
@@ -159,29 +137,23 @@ anchor_right = 0.8
 anchor_bottom = 0.6
 size_flags_horizontal = 2
 
-[node name="EyeShapeLabel" type="Label" parent="EyeShapeContainer" unique_id=1930696198]
-layout_mode = 0
+[node name="EyeShapeLabel" type="Label" parent="EyeShapeContainer" unique_id=874446970]
+layout_mode = 2
 text = "Eye Shape:"
 
-[node name="EyeShapeLeftButton" type="Button" parent="EyeShapeContainer" unique_id=1930696198]
-layout_mode = 0
-anchor_left = 0.25
-anchor_right = 0.4
+[node name="EyeShapeLeftButton" type="Button" parent="EyeShapeContainer" unique_id=2004450288]
+layout_mode = 2
 text = "<"
 
-[node name="EyeShapeValueLabel" type="Label" parent="EyeShapeContainer" unique_id=1930696198]
-layout_mode = 0
-anchor_left = 0.4
-anchor_right = 0.6
+[node name="EyeShapeValueLabel" type="Label" parent="EyeShapeContainer" unique_id=1998971963]
+layout_mode = 2
 text = "1"
 
-[node name="EyeShapeRightButton" type="Button" parent="EyeShapeContainer" unique_id=1930696198]
-layout_mode = 0
-anchor_left = 0.6
-anchor_right = 0.75
+[node name="EyeShapeRightButton" type="Button" parent="EyeShapeContainer" unique_id=851995974]
+layout_mode = 2
 text = ">"
 
-[node name="EyeColorContainer" type="HBoxContainer" parent="." unique_id=1930696198]
+[node name="EyeColorContainer" type="HBoxContainer" parent="." unique_id=1950684526]
 layout_mode = 0
 anchor_left = 0.2
 anchor_top = 0.6
@@ -189,29 +161,23 @@ anchor_right = 0.8
 anchor_bottom = 0.65
 size_flags_horizontal = 2
 
-[node name="EyeColorLabel" type="Label" parent="EyeColorContainer" unique_id=1930696198]
-layout_mode = 0
+[node name="EyeColorLabel" type="Label" parent="EyeColorContainer" unique_id=1939670275]
+layout_mode = 2
 text = "Eye Color:"
 
-[node name="EyeColorLeftButton" type="Button" parent="EyeColorContainer" unique_id=1930696198]
-layout_mode = 0
-anchor_left = 0.25
-anchor_right = 0.4
+[node name="EyeColorLeftButton" type="Button" parent="EyeColorContainer" unique_id=15904631]
+layout_mode = 2
 text = "<"
 
-[node name="EyeColorValueLabel" type="Label" parent="EyeColorContainer" unique_id=1930696198]
-layout_mode = 0
-anchor_left = 0.4
-anchor_right = 0.6
+[node name="EyeColorValueLabel" type="Label" parent="EyeColorContainer" unique_id=1236629493]
+layout_mode = 2
 text = "1"
 
-[node name="EyeColorRightButton" type="Button" parent="EyeColorContainer" unique_id=1930696198]
-layout_mode = 0
-anchor_left = 0.6
-anchor_right = 0.75
+[node name="EyeColorRightButton" type="Button" parent="EyeColorContainer" unique_id=138823294]
+layout_mode = 2
 text = ">"
 
-[node name="SkinColorContainer" type="HBoxContainer" parent="." unique_id=1930696198]
+[node name="SkinColorContainer" type="HBoxContainer" parent="." unique_id=835521204]
 layout_mode = 0
 anchor_left = 0.2
 anchor_top = 0.65
@@ -219,26 +185,20 @@ anchor_right = 0.8
 anchor_bottom = 0.7
 size_flags_horizontal = 2
 
-[node name="SkinColorLabel" type="Label" parent="SkinColorContainer" unique_id=1930696198]
-layout_mode = 0
+[node name="SkinColorLabel" type="Label" parent="SkinColorContainer" unique_id=83994492]
+layout_mode = 2
 text = "Skin Color:"
 
-[node name="SkinColorLeftButton" type="Button" parent="SkinColorContainer" unique_id=1930696198]
-layout_mode = 0
-anchor_left = 0.25
-anchor_right = 0.4
+[node name="SkinColorLeftButton" type="Button" parent="SkinColorContainer" unique_id=1646127739]
+layout_mode = 2
 text = "<"
 
-[node name="SkinColorValueLabel" type="Label" parent="SkinColorContainer" unique_id=1930696198]
-layout_mode = 0
-anchor_left = 0.4
-anchor_right = 0.6
+[node name="SkinColorValueLabel" type="Label" parent="SkinColorContainer" unique_id=968906720]
+layout_mode = 2
 text = "1"
 
-[node name="SkinColorRightButton" type="Button" parent="SkinColorContainer" unique_id=1930696198]
-layout_mode = 0
-anchor_left = 0.6
-anchor_right = 0.75
+[node name="SkinColorRightButton" type="Button" parent="SkinColorContainer" unique_id=958740680]
+layout_mode = 2
 text = ">"
 
 [node name="CreateButton" type="Button" parent="." unique_id=1377557787]
@@ -249,7 +209,7 @@ anchor_right = 0.6
 anchor_bottom = 0.8
 text = "Create Character"
 
-[node name="BackButton" type="Button" parent="." unique_id=1377557787]
+[node name="BackButton" type="Button" parent="." unique_id=1465830750]
 layout_mode = 0
 anchor_left = 0.4
 anchor_top = 0.85

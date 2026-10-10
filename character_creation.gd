@@ -37,6 +37,14 @@ func _ready():
 		create_button.connect("pressed", Callable(self, "_on_create_button_pressed"))
 		print("Create button connected successfully")
 	
+	# Populate class dropdown with items
+	var class_dropdown = $CharacterClassContainer/ClassDropdown
+	if class_dropdown:
+		class_dropdown.clear()
+		var classes = ["Blacksmith", "Hunter", "Healer", "Farmer", "Fisherman", "Lumberjack", "Knight", "Miner"]
+		for cls in classes:
+			class_dropdown.add_item(cls)
+	
 	# Connect all the navigation buttons
 	connect_navigation_buttons()
 	
@@ -115,10 +123,10 @@ func _on_create_button_pressed():
 		character_name = name_input.text
 	
 	# Get the character class
-	var class_dropdown = $CharacterClassContainer/ClassDropdown
 	var character_class = ""
 	if class_dropdown:
-		character_class = class_dropdown.get_item_text(class_dropdown.selected)
+		if class_dropdown.selected >= 0:
+			character_class = class_dropdown.get_item_text(class_dropdown.selected)
 	
 	print("Creating character: Name='" + character_name + "', Class='" + character_class + "', Slot=" + str(slot_number))
 	

@@ -45,15 +45,31 @@ offset_bottom = 0.73999023
 size_flags_horizontal = 2
 size_flags_vertical = 2
 theme = ExtResource("3_fu7sn")
-text = "Play Game"
+text = "Host Game"
 
-[node name="SettingsButton" type="Button" parent="." unique_id=2105092401]
+[node name="JoinButton" type="Button" parent="." unique_id=483054136]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.24400002
 anchor_top = 0.38300002
 anchor_right = 0.83000004
 anchor_bottom = 0.47900003
+offset_left = -7.5200195
+offset_top = -0.22003174
+offset_right = -0.4000244
+offset_bottom = 9.139893
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("3_fu7sn")
+text = "Join Game"
+
+[node name="SettingsButton" type="Button" parent="." unique_id=2105092401]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.24400002
+anchor_top = 0.52700003
+anchor_right = 0.83000004
+anchor_bottom = 0.62300003
 offset_left = -7.5200195
 offset_top = -0.22003174
 offset_right = -0.4000244

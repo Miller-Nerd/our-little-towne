@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://fpifbulmkjwr"]
 
-[ext_resource type="Script" uid="uid://drl28u8vvo8cl" path="res://connection_attempt.gd" id="1"]
+[ext_resource type="Script" uid="uid://cqyhoa2g7kq0f" path="res://connection_attempt.gd" id="1"]
+[ext_resource type="LabelSettings" uid="uid://cgi1vydqjrur2" path="res://new_label_settings.tres" id="2_gvdg5"]
 
 [node name="ConnectionAttempt" type="Control" unique_id=1803447360]
 layout_mode = 3
@@ -22,6 +23,7 @@ offset_left = 7.9599915
 offset_top = 2.339981
 offset_right = -0.4000244
 text = "Connecting to Lobby"
+label_settings = ExtResource("2_gvdg5")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -39,7 +41,6 @@ anchor_left = 0.2
 anchor_top = 0.4
 anchor_right = 0.8
 anchor_bottom = 0.45
-value = 0.0
 
 [node name="CancelButton" type="Button" parent="." unique_id=1377557787]
 layout_mode = 0
