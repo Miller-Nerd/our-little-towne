@@ -6,9 +6,9 @@ Each character slot should contain:
 - `class` (string): The character's class 
 - `level` (integer): The character's level
 - `experience` (integer): Current experience points
+- `appearance` (dictionary): The appearance choices made in Character Creation
 - `stats` (dictionary): Character stats like strength, dexterity, etc.
 - `inventory` (array): List of items the character has
-- `abilities` (array): List of abilities/spells the character knows
 
 ## Example Structure
 ```json
@@ -17,6 +17,14 @@ Each character slot should contain:
   "class": "Ranger",
   "level": 5,
   "experience": 1250,
+  "appearance": {
+    "gender": 1,
+    "hair": 3,
+    "hair_color": 7,
+    "skin": 3,
+    "eyes": 2,
+    "eye_color": 4,
+  },
   "stats": {
     "strength": 12,
     "dexterity": 18,
@@ -27,11 +35,6 @@ Each character slot should contain:
     "Longbow",
     "Leather Armor",
     "Health Potion"
-  ],
-  "abilities": [
-    "Marksmanship",
-    "Stealth",
-    "Track"
   ]
 }
 ```

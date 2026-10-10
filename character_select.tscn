@@ -65,16 +65,13 @@ vertical_alignment = 1
 
 [node name="CharacterInfo1#CharacterLevel1" type="Label" parent="CharacterList/CharacterSlot1/CharacterSlot1#CharacterInfo1" unique_id=1563449342]
 layout_mode = 2
-text = "Level"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CharacterSlot1#CreateCharacter1" type="Label" parent="CharacterList/CharacterSlot1" unique_id=2042393559]
+[node name="CharacterSlot1#CreateCharacter1" type="Button" parent="CharacterList/CharacterSlot1" unique_id=2042393559]
 modulate = Color(1, 1, 1, 0.7)
 layout_mode = 2
 text = "Create Character"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="CharacterSlot2" type="HBoxContainer" parent="CharacterList" unique_id=1716454993]
 layout_mode = 2
@@ -105,16 +102,13 @@ vertical_alignment = 1
 
 [node name="CharacterInfo2#CharacterLevel2" type="Label" parent="CharacterList/CharacterSlot2/CharacterSlot2#CharacterInfo2" unique_id=1417845011]
 layout_mode = 2
-text = "Level"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CharacterSlot2#CreateCharacter2" type="Label" parent="CharacterList/CharacterSlot2" unique_id=854117823]
+[node name="CharacterSlot2#CreateCharacter2" type="Button" parent="CharacterList/CharacterSlot2" unique_id=854117823]
 modulate = Color(1, 1, 1, 0.7)
 layout_mode = 2
 text = "Create Character"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="CharacterSlot3" type="HBoxContainer" parent="CharacterList" unique_id=1479283367]
 layout_mode = 2
@@ -145,16 +139,13 @@ vertical_alignment = 1
 
 [node name="CharacterInfo3#CharacterLevel3" type="Label" parent="CharacterList/CharacterSlot3/CharacterSlot3#CharacterInfo3" unique_id=721491749]
 layout_mode = 2
-text = "Level"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CharacterSlot3#CreateCharacter3" type="Label" parent="CharacterList/CharacterSlot3" unique_id=636412859]
+[node name="CharacterSlot3#CreateCharacter3" type="Button" parent="CharacterList/CharacterSlot3" unique_id=636412859]
 modulate = Color(1, 1, 1, 0.7)
 layout_mode = 2
 text = "Create Character"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="CharacterSlot4" type="HBoxContainer" parent="CharacterList" unique_id=1652602644]
 layout_mode = 2
@@ -185,16 +176,13 @@ vertical_alignment = 1
 
 [node name="CharacterInfo4#CharacterLevel4" type="Label" parent="CharacterList/CharacterSlot4/CharacterSlot4#CharacterInfo4" unique_id=780293003]
 layout_mode = 2
-text = "Level"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CharacterSlot4#CreateCharacter4" type="Label" parent="CharacterList/CharacterSlot4" unique_id=2141546883]
+[node name="CharacterSlot4#CreateCharacter4" type="Button" parent="CharacterList/CharacterSlot4" unique_id=2141546883]
 modulate = Color(1, 1, 1, 0.7)
 layout_mode = 2
 text = "Create Character"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="CharacterSlot5" type="HBoxContainer" parent="CharacterList" unique_id=310376313]
 layout_mode = 2
@@ -225,13 +213,18 @@ vertical_alignment = 1
 
 [node name="CharacterInfo5#CharacterLevel5" type="Label" parent="CharacterList/CharacterSlot5/CharacterSlot5#CharacterInfo5" unique_id=814153928]
 layout_mode = 2
-text = "Level"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CharacterSlot5#CreateCharacter5" type="Label" parent="CharacterList/CharacterSlot5" unique_id=1377557787]
+[node name="CharacterSlot5#CreateCharacter5" type="Button" parent="CharacterList/CharacterSlot5" unique_id=1377557787]
 modulate = Color(1, 1, 1, 0.7)
 layout_mode = 2
 text = "Create Character"
-horizontal_alignment = 1
-vertical_alignment = 1
+
+[node name="BackButton" type="Button" parent="." unique_id=1963383357]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.9
+anchor_right = 0.5
+anchor_bottom = 1.0
+text = "Back"

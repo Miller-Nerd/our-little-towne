@@ -86,4 +86,3 @@ anchor_top = 0.8
 anchor_right = 0.5
 anchor_bottom = 0.9
 text = "Back"
-script = ExtResource("1")
