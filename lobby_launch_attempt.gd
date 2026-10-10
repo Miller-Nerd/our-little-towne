@@ -73,7 +73,8 @@ func _on_timer_timeout():
 		timer.start()
 
 func _on_host_complete():
-	NetworkManager.start_server(port)
+	var network_manager = get_node("/root/NetworkManager")
+	network_manager.start_server(port)
 	get_tree().change_scene_to_file("res://lobby.tscn")
 
 func _on_cancel_pressed():

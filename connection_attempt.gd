@@ -2,6 +2,7 @@ extends Control
 
 var target_ip = "127.0.0.1"
 var target_port = 7000
+var network_manager = null
 
 func _ready():
 	print("Connection attempt scene loaded")
@@ -14,6 +15,9 @@ func _ready():
 	var cancel_button = $CancelButton
 	if cancel_button:
 		cancel_button.connect("pressed", Callable(self, "_on_cancel_pressed"))
+	
+	# Get the network manager singleton
+	network_manager = get_node("/root/NetworkManager")
 	
 	start_connection()
 
@@ -31,7 +35,7 @@ func start_connection():
 	if character_data != null:
 		player_info.name = character_data.name
 	
-	var success = await NetworkManager.connect_to_server(target_ip, target_port, player_info)
+	var success = await get_node("/root/NetworkManager").connect_to_server(target_ip, target_port, player_info)
 	
 	if success:
 		print("Connection successful!")
@@ -84,5 +88,5 @@ func _on_error_ok_pressed():
 
 func _on_cancel_pressed():
 	print("Connection cancelled by user")
-	NetworkManager.cleanup()
+	network_manager.cleanup()
 	get_tree().change_scene_to_file("res://main_menu.tscn")
