@@ -1,22 +1,21 @@
 extends Control
 
 func _ready():
+	print("Minimal main menu loaded")
 	# Connect button signals
-	$PlayButton.connect("pressed", Callable(self, "_on_play_button_pressed"))
-	$SettingsButton.connect("pressed", Callable(self, "_on_settings_button_pressed"))
-	$Settings/BackButton.connect("pressed", Callable(self, "_on_back_button_pressed"))
+	var play_button = $PlayButton
+	if play_button:
+		print("Found PlayButton, connecting...")
+		play_button.connect("pressed", Callable(self, "_on_play_button_pressed"))
+		print("Play button connected successfully")
+	else:
+		print("ERROR: Could not find PlayButton node")
 
 func _on_play_button_pressed():
-	print("Play button pressed")
-	# Load the main game scene here
-	get_tree().change_scene_to_file("res://main_game.tscn")
-
-func _on_settings_button_pressed():
-	print("Settings button pressed")
-	# Load settings scene
-	get_tree().change_scene_to_file("res://settings.tscn")
-
-func _on_back_button_pressed():
-	print("Back button pressed")
-	# Return to main menu
-	get_tree().change_scene_to_file("res://main_menu.tscn")
+	print("Play button pressed!")
+	print("Attempting to change scene to character_select.tscn")
+	var result = get_tree().change_scene_to_file("res://character_select.tscn")
+	if result != OK:
+		print("Failed to change scene: ", result)
+	else:
+		print("Scene changed successfully")

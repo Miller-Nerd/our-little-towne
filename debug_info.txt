@@ -1,0 +1,1 @@
+The issue has been resolved by ensuring scripts are properly attached to scenes. Please open the project in Godot editor and test again.

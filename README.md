@@ -5,7 +5,8 @@ A mobile game built with Godot 4.72.
 ## Features
 
 - Mobile-optimized vertical orientation
-- Main menu with Play, Settings, and Quit options
+- Main menu with Play, Settings options
+- Character selection screen with 5 character slots
 - Basic game scene structure
 - Settings panel
 
@@ -19,15 +20,17 @@ A mobile game built with Godot 4.72.
 
 - `main_menu.tscn` - Main menu scene with UI elements
 - `main_menu.gd` - Script for main menu functionality
+- `character_select.tscn` - Character selection screen with 5 slots
+- `character_select.gd` - Script for character selection functionality
 - `main_game.tscn` - Basic game scene
 - `settings.tscn` - Settings panel scene
 - `settings.gd` - Settings panel script
 
 ## Controls
 
-- Play: Start the game
+- Play: Start the game (takes you to character selection)
 - Settings: Open settings menu
-- Quit: Exit the application
+- Back: Return to main menu from character selection or settings
 
 ## Mobile Optimization
 

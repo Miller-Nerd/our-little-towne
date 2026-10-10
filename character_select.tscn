@@ -1,0 +1,237 @@
+[gd_scene format=3 uid="uid://b288ft7kmnsj7"]
+
+[ext_resource type="Script" uid="uid://drl28u8vvo8cj" path="res://character_select.gd" id="1"]
+[ext_resource type="LabelSettings" uid="uid://cgi1vydqjrur2" path="res://new_label_settings.tres" id="2_5duen"]
+
+[node name="CharacterSelect" type="Control" unique_id=1803447360]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="TitleLabel" type="Label" parent="." unique_id=340869756]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.163
+anchor_top = 0.09900001
+anchor_right = 0.83000004
+anchor_bottom = 0.2
+offset_left = 7.9599915
+offset_top = 2.339981
+offset_right = -0.4000244
+text = "Select Character"
+label_settings = ExtResource("2_5duen")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterList" type="VBoxContainer" parent="." unique_id=1877568242]
+layout_mode = 0
+anchor_left = 0.1
+anchor_top = 0.25
+anchor_right = 0.9
+anchor_bottom = 0.8
+size_flags_horizontal = 2
+size_flags_vertical = 2
+
+[node name="CharacterSlot1" type="HBoxContainer" parent="CharacterList" unique_id=1930696198]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+
+[node name="CharacterSlot1#CharacterIcon1" type="TextureRect" parent="CharacterList/CharacterSlot1" unique_id=2117878827]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+stretch_mode = 3
+
+[node name="CharacterSlot1#CharacterInfo1" type="VBoxContainer" parent="CharacterList/CharacterSlot1" unique_id=901313482]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+
+[node name="CharacterInfo1#CharacterName1" type="Label" parent="CharacterList/CharacterSlot1/CharacterSlot1#CharacterInfo1" unique_id=1780299213]
+layout_mode = 2
+text = "Character 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterInfo1#CharacterClass1" type="Label" parent="CharacterList/CharacterSlot1/CharacterSlot1#CharacterInfo1" unique_id=1425692757]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterInfo1#CharacterLevel1" type="Label" parent="CharacterList/CharacterSlot1/CharacterSlot1#CharacterInfo1" unique_id=1563449342]
+layout_mode = 2
+text = "Level"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterSlot1#CreateCharacter1" type="Label" parent="CharacterList/CharacterSlot1" unique_id=2042393559]
+modulate = Color(1, 1, 1, 0.7)
+layout_mode = 2
+text = "Create Character"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterSlot2" type="HBoxContainer" parent="CharacterList" unique_id=1716454993]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+
+[node name="CharacterSlot2#CharacterIcon2" type="TextureRect" parent="CharacterList/CharacterSlot2" unique_id=633677038]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+stretch_mode = 3
+
+[node name="CharacterSlot2#CharacterInfo2" type="VBoxContainer" parent="CharacterList/CharacterSlot2" unique_id=419566584]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+
+[node name="CharacterInfo2#CharacterName2" type="Label" parent="CharacterList/CharacterSlot2/CharacterSlot2#CharacterInfo2" unique_id=221061254]
+layout_mode = 2
+text = "Character 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterInfo2#CharacterClass2" type="Label" parent="CharacterList/CharacterSlot2/CharacterSlot2#CharacterInfo2" unique_id=1732028138]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterInfo2#CharacterLevel2" type="Label" parent="CharacterList/CharacterSlot2/CharacterSlot2#CharacterInfo2" unique_id=1417845011]
+layout_mode = 2
+text = "Level"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterSlot2#CreateCharacter2" type="Label" parent="CharacterList/CharacterSlot2" unique_id=854117823]
+modulate = Color(1, 1, 1, 0.7)
+layout_mode = 2
+text = "Create Character"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterSlot3" type="HBoxContainer" parent="CharacterList" unique_id=1479283367]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+
+[node name="CharacterSlot3#CharacterIcon3" type="TextureRect" parent="CharacterList/CharacterSlot3" unique_id=1005596073]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+stretch_mode = 3
+
+[node name="CharacterSlot3#CharacterInfo3" type="VBoxContainer" parent="CharacterList/CharacterSlot3" unique_id=1392382243]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+
+[node name="CharacterInfo3#CharacterName3" type="Label" parent="CharacterList/CharacterSlot3/CharacterSlot3#CharacterInfo3" unique_id=676384249]
+layout_mode = 2
+text = "Character 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterInfo3#CharacterClass3" type="Label" parent="CharacterList/CharacterSlot3/CharacterSlot3#CharacterInfo3" unique_id=1017996766]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterInfo3#CharacterLevel3" type="Label" parent="CharacterList/CharacterSlot3/CharacterSlot3#CharacterInfo3" unique_id=721491749]
+layout_mode = 2
+text = "Level"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterSlot3#CreateCharacter3" type="Label" parent="CharacterList/CharacterSlot3" unique_id=636412859]
+modulate = Color(1, 1, 1, 0.7)
+layout_mode = 2
+text = "Create Character"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterSlot4" type="HBoxContainer" parent="CharacterList" unique_id=1652602644]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+
+[node name="CharacterSlot4#CharacterIcon4" type="TextureRect" parent="CharacterList/CharacterSlot4" unique_id=932796427]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+stretch_mode = 3
+
+[node name="CharacterSlot4#CharacterInfo4" type="VBoxContainer" parent="CharacterList/CharacterSlot4" unique_id=843710266]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+
+[node name="CharacterInfo4#CharacterName4" type="Label" parent="CharacterList/CharacterSlot4/CharacterSlot4#CharacterInfo4" unique_id=1111029455]
+layout_mode = 2
+text = "Character 4"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterInfo4#CharacterClass4" type="Label" parent="CharacterList/CharacterSlot4/CharacterSlot4#CharacterInfo4" unique_id=1951907533]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterInfo4#CharacterLevel4" type="Label" parent="CharacterList/CharacterSlot4/CharacterSlot4#CharacterInfo4" unique_id=780293003]
+layout_mode = 2
+text = "Level"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterSlot4#CreateCharacter4" type="Label" parent="CharacterList/CharacterSlot4" unique_id=2141546883]
+modulate = Color(1, 1, 1, 0.7)
+layout_mode = 2
+text = "Create Character"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterSlot5" type="HBoxContainer" parent="CharacterList" unique_id=310376313]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+
+[node name="CharacterSlot5#CharacterIcon5" type="TextureRect" parent="CharacterList/CharacterSlot5" unique_id=1024976441]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+stretch_mode = 3
+
+[node name="CharacterSlot5#CharacterInfo5" type="VBoxContainer" parent="CharacterList/CharacterSlot5" unique_id=1983411494]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+
+[node name="CharacterInfo5#CharacterName5" type="Label" parent="CharacterList/CharacterSlot5/CharacterSlot5#CharacterInfo5" unique_id=1529616189]
+layout_mode = 2
+text = "Character 5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterInfo5#CharacterClass5" type="Label" parent="CharacterList/CharacterSlot5/CharacterSlot5#CharacterInfo5" unique_id=703660435]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterInfo5#CharacterLevel5" type="Label" parent="CharacterList/CharacterSlot5/CharacterSlot5#CharacterInfo5" unique_id=814153928]
+layout_mode = 2
+text = "Level"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterSlot5#CreateCharacter5" type="Label" parent="CharacterList/CharacterSlot5" unique_id=1377557787]
+modulate = Color(1, 1, 1, 0.7)
+layout_mode = 2
+text = "Create Character"
+horizontal_alignment = 1
+vertical_alignment = 1

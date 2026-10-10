@@ -1,89 +1,89 @@
 [gd_scene format=3 uid="uid://c3ah68aa01234"]
-[ext_resource type="Script" path="res://main_menu.gd" id="1"]
 
-[node name="MainMenu" type="Control"]
+[ext_resource type="Script" uid="uid://3qd4wll8vktl" path="res://main_menu.gd" id="1"]
+[ext_resource type="LabelSettings" uid="uid://cgi1vydqjrur2" path="res://new_label_settings.tres" id="2_7vrkn"]
+[ext_resource type="Theme" uid="uid://dxqjpleje544k" path="res://new_theme.tres" id="3_fu7sn"]
+
+[node name="MainMenu" type="Control" unique_id=1338417744]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1")
 
-[node name="TitleLabel" type="Label" parent="."]
+[node name="TitleLabel" type="Label" parent="." unique_id=1974090490]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.119
+anchor_top = 0.047000002
+anchor_right = 0.91300005
+anchor_bottom = 0.185
+offset_left = -0.5200043
+offset_top = 1.0199966
+offset_right = -0.040039063
+offset_bottom = 0.1000061
+size_flags_horizontal = 2
+size_flags_vertical = 2
 text = "Our Little Towne"
-anchor_left = 0.5
-anchor_top = 0.2
-anchor_right = 0.5
-anchor_bottom = 0.3
-margin_left = -200.0
-margin_top = -50.0
-margin_right = 200.0
-margin_bottom = 50.0
+label_settings = ExtResource("2_7vrkn")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PlayButton" type="Button" parent="." unique_id=383054136]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.24400002
+anchor_top = 0.23900001
+anchor_right = 0.83000004
+anchor_bottom = 0.33900002
+offset_left = -7.5200195
+offset_top = 0.73999023
+offset_right = -0.4000244
+offset_bottom = 0.73999023
 size_flags_horizontal = 2
 size_flags_vertical = 2
-custom_fonts/font_size = 48
-
-[node name="PlayButton" type="Button" parent="."]
+theme = ExtResource("3_fu7sn")
 text = "Play Game"
-anchor_left = 0.5
-anchor_top = 0.4
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -150.0
-margin_top = -30.0
-margin_right = 150.0
-margin_bottom = 30.0
+
+[node name="SettingsButton" type="Button" parent="." unique_id=2105092401]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.24400002
+anchor_top = 0.38300002
+anchor_right = 0.83000004
+anchor_bottom = 0.47900003
+offset_left = -7.5200195
+offset_top = -0.22003174
+offset_right = -0.4000244
+offset_bottom = 9.139893
 size_flags_horizontal = 2
 size_flags_vertical = 2
-custom_fonts/font_size = 24
-
-[node name="SettingsButton" type="Button" parent="."]
+theme = ExtResource("3_fu7sn")
 text = "Settings"
-anchor_left = 0.5
-anchor_top = 0.55
-anchor_right = 0.5
-anchor_bottom = 0.65
-margin_left = -150.0
-margin_top = -30.0
-margin_right = 150.0
-margin_bottom = 30.0
-size_flags_horizontal = 2
-size_flags_vertical = 2
-custom_fonts/font_size = 24
 
-[node name="Settings" type="Panel" parent="."]
-anchor_left = 0.0
-anchor_top = 0.0
+[node name="Settings" type="Panel" parent="." unique_id=1936712078]
+visible = false
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 0.0
-margin_top = 0.0
-margin_right = 0.0
-margin_bottom = 0.0
-visible = false
 
-[node name="SettingsTitle" type="Label" parent="Settings"]
-text = "Settings"
+[node name="SettingsTitle" type="Label" parent="Settings" unique_id=1206293772]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.1
 anchor_right = 0.5
 anchor_bottom = 0.2
-margin_left = -100.0
-margin_top = -30.0
-margin_right = 100.0
-margin_bottom = 30.0
+text = "Settings"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BackButton" type="Button" parent="Settings"]
-text = "Back"
+[node name="BackButton" type="Button" parent="Settings" unique_id=1963383357]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.8
 anchor_right = 0.5
 anchor_bottom = 0.9
-margin_left = -100.0
-margin_top = -30.0
-margin_right = 100.0
-margin_bottom = 30.0
+text = "Back"
+script = ExtResource("1")
