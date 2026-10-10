@@ -12,6 +12,19 @@ var characters = [
 func _ready():
 	print("Character select scene loaded")
 	
+	# Check if a new character was just created and save it to the slot
+	var tree = get_tree()
+	if tree.has_meta("created_character_data"):
+		var created_data = tree.get_meta("created_character_data")
+		var slot_idx = created_data["slot_number"] - 1
+		characters[slot_idx] = {
+			"name": created_data["name"],
+			"class": created_data["class"],
+			"level": "Level 1"
+		}
+		print("Saved new character to slot " + str(created_data["slot_number"]))
+		tree.set_meta("created_character_data", null)
+	
 	# Connect back button
 	var back_button = $BackButton
 	if back_button:

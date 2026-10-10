@@ -52,8 +52,15 @@ func connect_to_server(ip_address, port=7000):
 	
 	multiplayer.multiplayer_peer = peer
 	
-	# Wait for connection and get player ID from server
-	await get_tree().create_timer(0.5).timeout
+	# Wait for connection to be established
+	var timeout = 3.0
+	while timeout > 0 and (peer.get_connection_status() != ENetMultiplayerPeer.CONNECTION_CONNECTED):
+		await get_tree().create_timer(0.1).timeout
+		timeout -= 0.1
+	
+	if peer.get_connection_status() != ENetMultiplayerPeer.CONNECTION_CONNECTED:
+		print("Connection timed out")
+		return false
 	
 	my_player_id = multiplayer.get_unique_id()
 	print("Connected with player ID: " + str(my_player_id))

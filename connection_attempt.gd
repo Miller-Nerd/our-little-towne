@@ -35,7 +35,7 @@ func start_connection():
 		status_label.text = "Connecting to server..."
 	
 	# Attempt actual network connection
-	var success = network_manager.connect_to_server(target_ip, target_port)
+	var success = await network_manager.connect_to_server(target_ip, target_port)
 	
 	if success:
 		print("Connection successful!")
