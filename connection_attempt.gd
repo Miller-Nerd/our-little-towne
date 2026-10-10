@@ -34,13 +34,21 @@ func start_connection():
 	if status_label:
 		status_label.text = "Connecting to server..."
 	
-	# Attempt actual network connection
-	var success = await network_manager.connect_to_server(target_ip, target_port)
+	# Attempt actual network connection with character data
+	var character_data = get_tree().get_meta("character_data", null)
+	var player_info = {"name": "Player" + str(1), "ready": false}
+	if character_data != null:
+		player_info.name = character_data.name
+	
+	var success = await network_manager.connect_to_server(target_ip, target_port, player_info)
 	
 	if success:
 		print("Connection successful!")
 		# Wait for player ID assignment and lobby join
 		await get_tree().create_timer(1.0).timeout
+		
+		# Pass network manager to next scene via meta
+		get_tree().set_meta("network_manager", network_manager)
 		
 		# Get character data that was passed from character selection
 		var character_data = get_tree().get_meta("character_data", null)

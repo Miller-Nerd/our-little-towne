@@ -81,6 +81,9 @@ func _on_host_complete():
 	# Start the server with the specified port
 	network_manager.start_server(port)
 	
+	# Pass network manager to next scene via meta
+	get_tree().set_meta("network_manager", network_manager)
+	
 	# Change to lobby scene
 	var result = get_tree().change_scene_to_file("res://lobby.tscn")
 	if result != OK:

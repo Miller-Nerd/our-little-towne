@@ -6,14 +6,25 @@ var network_manager = null
 var NetworkManager = preload("res://network_manager.gd")
 var my_player_id = -1
 var is_ready = false
+var character_name = ""
 
 func _ready():
-	# Initialize network manager as singleton
-	network_manager = NetworkManager.new()
-	get_tree().root.add_child(network_manager)
+	# Get network manager from previous scene (created in connection_attempt or host_launch)
+	network_manager = get_tree().get_meta("network_manager", null)
+	if network_manager == null:
+		print("ERROR: Network manager not found!")
+		return
 	
-	my_player_id = multiplayer.get_unique_id()
+	my_player_id = network_manager.my_player_id
 	print("Lobby player ID: " + str(my_player_id))
+	
+	# Get character name from scene meta or use default
+	var char_data = get_tree().get_meta("character_data", null)
+	if char_data != null and char_data.name != "":
+		character_name = char_data.name
+	else:
+		character_name = "Player" + str(my_player_id)
+	print("Character name in lobby: " + character_name)
 	
 	# Connect to network signals
 	network_manager.connect("player_joined", Callable(self, "_on_player_joined"))
@@ -24,10 +35,12 @@ func _ready():
 	# Initialize lobby display with empty slots
 	update_lobby_display()
 	
-	# Connect the start game button
+	# Connect the start game button (only visible to host)
 	var start_button = get_node("LobbyContainer/ButtonRow/StartGameButton")
 	if start_button:
 		start_button.connect("pressed", Callable(self, "_on_start_game_pressed"))
+		# Only show Start Game button for host (player ID 1)
+		start_button.visible = (my_player_id == 1)
 	
 	# Connect the leave lobby button
 	var leave_button = get_node("LobbyContainer/ButtonRow/LeaveLobbyButton")
@@ -44,15 +57,8 @@ func _ready():
 	if confirm_dialog:
 		confirm_dialog.connect("confirmed", Callable(self, "_on_confirm_leave"))
 	
-	# Check if we have character data from connection attempt
-	var character_data = get_tree().get_meta("character_data", null)
-	if character_data != null:
-		print("Got character data in lobby: ", character_data)
-		# Send join request with character data to server
-		if my_player_id == 1:
-			network_manager.add_player_to_lobby(my_player_id, {"name": character_data.name, "ready": false})
-		else:
-			network_manager.rpc_id(1, "add_player_to_lobby", my_player_id, {"name": character_data.name, "ready": false})
+	# Join lobby with character name
+	network_manager.add_player_to_lobby(my_player_id, {"name": character_name, "ready": false})
 
 func _on_start_game_pressed():
 	print("Starting game")

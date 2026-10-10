@@ -34,13 +34,13 @@ func start_server(port=7000):
 	multiplayer.multiplayer_peer = peer
 	my_player_id = 1
 	
-	# Add self as first player in lobby
+	# Add self as first player in lobby (local only for host)
 	add_player_to_lobby(my_player_id, {"name": "Host", "ready": false})
 	
 	print("Server started successfully")
 	return true
 
-func connect_to_server(ip_address, port=7000):
+func connect_to_server(ip_address, port=7000, player_data=null):
 	print("Connecting to server at: " + ip_address + ":" + str(port))
 	is_server = false
 	
@@ -65,15 +65,18 @@ func connect_to_server(ip_address, port=7000):
 	my_player_id = multiplayer.get_unique_id()
 	print("Connected with player ID: " + str(my_player_id))
 	
-	# Send join request to server
-	rpc_id(1, "_handle_player_join", my_player_id, {"name": "Player" + str(my_player_id), "ready": false})
+	# Send join request to server with actual character data
+	if player_data == null:
+		player_data = {"name": "Player" + str(my_player_id), "ready": false}
+	rpc_id(1, "broadcast_player_join", my_player_id, player_data)
 	
 	return true
 
 func _on_peer_connected(id):
 	print("Client connected: " + str(id))
-	if id != 1 and not has_player_in_lobby(id):
-		add_player_to_lobby(id, {"name": "Player" + str(id), "ready": false})
+	# Send current lobby state to the new joiner so they see existing players
+	if is_server and id != 1:
+		rpc_id(id, "sync_lobby_state", connected_players)
 
 func _on_peer_disconnected(id):
 	print("Client disconnected: " + str(id))
@@ -86,6 +89,16 @@ func add_player_to_lobby(player_id, player_data):
 		connected_players.append({"id": player_id, "data": player_data})
 		print("Player added to lobby: " + str(player_id))
 		emit_signal("player_joined", player_id, player_data)
+
+@rpc("any_peer", "reliable")
+func sync_lobby_state(players):
+	connected_players = players
+	for p in connected_players:
+		emit_signal("player_joined", p.id, p.data)
+
+@rpc("any_peer", "reliable")
+func broadcast_player_join(player_id, player_data):
+	add_player_to_lobby(player_id, player_data)
 
 func remove_player_from_lobby(player_id):
 	for i in range(connected_players.size()):
