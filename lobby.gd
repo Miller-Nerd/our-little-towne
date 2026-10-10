@@ -24,9 +24,19 @@ func _ready():
 	update_lobby_display()
 	
 	# Connect the start game button
-	var start_button = get_node("LobbyContainer/StartGameButton")
+	var start_button = get_node("LobbyContainer/ButtonRow/StartGameButton")
 	if start_button:
 		start_button.connect("pressed", Callable(self, "_on_start_game_pressed"))
+	
+	# Connect the leave lobby button
+	var leave_button = get_node("LobbyContainer/ButtonRow/LeaveLobbyButton")
+	if leave_button:
+		leave_button.connect("pressed", Callable(self, "_on_leave_lobby_pressed"))
+	
+	# Connect the confirmation dialog
+	var confirm_dialog = get_node("LeaveConfirmDialog")
+	if confirm_dialog:
+		confirm_dialog.connect("confirmed", Callable(self, "_on_confirm_leave"))
 	
 	# Check if we have character data from connection attempt
 	var character_data = get_tree().get_meta("player_character_data", null)
@@ -81,3 +91,21 @@ func update_lobby_display():
 
 func set_my_ready(is_ready):
 	network_manager.set_player_ready(my_player_id, is_ready)
+
+func _on_leave_lobby_pressed():
+	var confirm_dialog = get_node("LeaveConfirmDialog")
+	if confirm_dialog:
+		confirm_dialog.popup_centered()
+
+func _on_confirm_leave():
+	print("Leaving lobby...")
+	
+	# Remove self from lobby if server knows about us
+	if network_manager.has_player_in_lobby(my_player_id):
+		network_manager.remove_player_from_lobby(my_player_id)
+	
+	# Clean up network connection
+	network_manager.cleanup()
+	
+	# Return to main menu
+	get_tree().change_scene_to_file("res://main_menu.tscn")

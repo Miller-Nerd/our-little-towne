@@ -215,10 +215,28 @@ text = "Ready"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="StartGameButton" type="Button" parent="LobbyContainer" unique_id=1377557787]
+[node name="ButtonRow" type="HBoxContainer" parent="LobbyContainer" unique_id=2000000001]
 layout_mode = 0
-anchor_left = 0.5
+anchors_preset = 15
+anchor_left = 0.3
 anchor_top = 0.9
-anchor_right = 0.5
+anchor_right = 0.7
 anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="StartGameButton" type="Button" parent="LobbyContainer/ButtonRow" unique_id=1377557787]
+layout_mode = 2
+size_flags_horizontal = 2
 text = "Start Game"
+
+[node name="LeaveLobbyButton" type="Button" parent="LobbyContainer/ButtonRow" unique_id=2000000002]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Leave Lobby"
+
+[node name="LeaveConfirmDialog" type="ConfirmationDialog" parent="." unique_id=2000000003]
+title = "Leave Lobby?"
+text = "Are you sure you want to leave the lobby? You will be disconnected from this game session."
