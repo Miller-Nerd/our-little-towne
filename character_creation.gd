@@ -13,6 +13,8 @@ var character_appearance = {
 	"eye_color": 1
 }
 
+var class_dropdown = null
+
 func _ready():
 	print("Character creation scene loaded")
 	
@@ -38,7 +40,7 @@ func _ready():
 		print("Create button connected successfully")
 	
 	# Populate class dropdown with items
-	var class_dropdown = $CharacterClassContainer/ClassDropdown
+	class_dropdown = $CharacterClassContainer/ClassDropdown
 	if class_dropdown:
 		class_dropdown.clear()
 		var classes = ["Blacksmith", "Hunter", "Healer", "Farmer", "Fisherman", "Lumberjack", "Knight", "Miner"]

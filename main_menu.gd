@@ -8,7 +8,7 @@ func _ready():
 	
 	# Initialize network manager as singleton
 	network_manager = NetworkManager.new()
-	get_tree().root.add_child(network_manager)
+	get_tree().root.add_child.call_deferred(network_manager)
 	
 	# Connect button signals
 	var play_button = $PlayButton
