@@ -39,11 +39,14 @@ func _ready():
 		confirm_dialog.connect("confirmed", Callable(self, "_on_confirm_leave"))
 	
 	# Check if we have character data from connection attempt
-	var character_data = get_tree().get_meta("player_character_data", null)
+	var character_data = get_tree().get_meta("character_data", null)
 	if character_data != null:
 		print("Got character data in lobby: ", character_data)
 		# Send join request with character data to server
-		network_manager.rpc_id(1, "add_player_to_lobby", my_player_id, {"name": character_data.name, "ready": false})
+		if my_player_id == 1:
+			network_manager.add_player_to_lobby(my_player_id, {"name": character_data.name, "ready": false})
+		else:
+			network_manager.rpc_id(1, "add_player_to_lobby", my_player_id, {"name": character_data.name, "ready": false})
 
 func _on_start_game_pressed():
 	print("Starting game")
