@@ -1,0 +1,162 @@
+[gd_scene format=3 uid="uid://b288ft7kmnsj8"]
+
+[ext_resource type="Script" path="res://world_selection.gd" id="1"]
+[ext_resource type="LabelSettings" uid="uid://cgi1vydqjrur2" path="res://new_label_settings.tres" id="2_5duen"]
+
+[node name="WorldSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="TitleLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.163
+anchor_top = 0.09900001
+anchor_right = 0.83000004
+anchor_bottom = 0.2
+offset_left = 7.9599915
+offset_top = 2.339981
+offset_right = -0.4000244
+text = "Select World"
+label_settings = ExtResource("2_5duen")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WorldList" type="VBoxContainer" parent="."]
+layout_mode = 0
+anchor_left = 0.1
+anchor_top = 0.25
+anchor_right = 0.9
+anchor_bottom = 0.8
+size_flags_horizontal = 2
+size_flags_vertical = 2
+
+[node name="WorldSlot1" type="HBoxContainer" parent="WorldList"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+
+[node name="WorldSlot1#WorldIcon1" type="TextureRect" parent="WorldList/WorldSlot1"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+stretch_mode = 3
+
+[node name="WorldSlot1#WorldInfo1" type="VBoxContainer" parent="WorldList/WorldSlot1"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+
+[node name="WorldInfo1#WorldName1" type="Label" parent="WorldList/WorldSlot1/WorldSlot1#WorldInfo1"]
+layout_mode = 2
+text = "World 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WorldInfo1#WorldLastPlayed1" type="Label" parent="WorldList/WorldSlot1/WorldSlot1#WorldInfo1"]
+layout_mode = 2
+text = "Last played: Never"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WorldSlot1#CreateWorld1" type="Button" parent="WorldList/WorldSlot1"]
+modulate = Color(1, 1, 1, 0.7)
+layout_mode = 2
+text = "Create World"
+
+[node name="JoinButton" type="Button" parent="WorldList/WorldSlot1"]
+visible = false
+modulate = Color(0.2, 0.8, 0.2, 1)
+layout_mode = 2
+text = "Join"
+
+[node name="WorldSlot2" type="HBoxContainer" parent="WorldList"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+
+[node name="WorldSlot2#WorldIcon2" type="TextureRect" parent="WorldList/WorldSlot2"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+stretch_mode = 3
+
+[node name="WorldSlot2#WorldInfo2" type="VBoxContainer" parent="WorldList/WorldSlot2"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+
+[node name="WorldInfo2#WorldName2" type="Label" parent="WorldList/WorldSlot2/WorldSlot2#WorldInfo2"]
+layout_mode = 2
+text = "World 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WorldInfo2#WorldLastPlayed2" type="Label" parent="WorldList/WorldSlot2/WorldSlot2#WorldInfo2"]
+layout_mode = 2
+text = "Last played: Never"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WorldSlot2#CreateWorld2" type="Button" parent="WorldList/WorldSlot2"]
+modulate = Color(1, 1, 1, 0.7)
+layout_mode = 2
+text = "Create World"
+
+[node name="JoinButton" type="Button" parent="WorldList/WorldSlot2"]
+visible = false
+modulate = Color(0.2, 0.8, 0.2, 1)
+layout_mode = 2
+text = "Join"
+
+[node name="WorldSlot3" type="HBoxContainer" parent="WorldList"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+
+[node name="WorldSlot3#WorldIcon3" type="TextureRect" parent="WorldList/WorldSlot3"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+stretch_mode = 3
+
+[node name="WorldSlot3#WorldInfo3" type="VBoxContainer" parent="WorldList/WorldSlot3"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+
+[node name="WorldInfo3#WorldName3" type="Label" parent="WorldList/WorldSlot3/WorldSlot3#WorldInfo3"]
+layout_mode = 2
+text = "World 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WorldInfo3#WorldLastPlayed3" type="Label" parent="WorldList/WorldSlot3/WorldSlot3#WorldInfo3"]
+layout_mode = 2
+text = "Last played: Never"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WorldSlot3#CreateWorld3" type="Button" parent="WorldList/WorldSlot3"]
+modulate = Color(1, 1, 1, 0.7)
+layout_mode = 2
+text = "Create World"
+
+[node name="JoinButton" type="Button" parent="WorldList/WorldSlot3"]
+visible = false
+modulate = Color(0.2, 0.8, 0.2, 1)
+layout_mode = 2
+text = "Join"
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.9
+anchor_right = 0.5
+anchor_bottom = 1.0
+text = "Back"

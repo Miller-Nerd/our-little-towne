@@ -183,10 +183,10 @@ func _on_select_character_pressed(slot_number):
 		# Pass character data to next scene
 		get_tree().set_meta("character_data", char_data)
 		
-		# Check if we're in host mode - route to lobby host setup instead of server select
+		# Check if we're in host mode - route to world selection instead of lobby host setup
 		if get_tree().has_meta("host_mode") and get_tree().get_meta("host_mode"):
-			print("Host mode detected, navigating to lobby host setup")
-			get_tree().change_scene_to_file("res://lobby_host_setup.tscn")
+			print("Host mode detected, navigating to world selection")
+			get_tree().change_scene_to_file("res://world_selection.tscn")
 		else:
 			# Navigate to server selection scene (IP entry / server browser)
 			get_tree().change_scene_to_file("res://server_select.tscn")
