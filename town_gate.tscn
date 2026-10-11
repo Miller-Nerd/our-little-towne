@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://towngate123"]
 
-[ext_resource type="Script" path="res://town_gate.gd" id="1"]
+[ext_resource type="Script" uid="uid://cmecwhppepj4l" path="res://town_gate.gd" id="1"]
 
-[node name="TownGate" type="Control"]
+[node name="TownGate" type="Control" unique_id=510084792]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,67 +11,67 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1")
 
-[node name="TitleLabel" type="Label" parent="."]
+[node name="TitleLabel" type="Label" parent="." unique_id=786002012]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.163
-anchor_top = 0.09900001
-anchor_right = 0.83000004
-anchor_bottom = 0.2
-offset_left = 7.9599915
-offset_top = 2.339981
-offset_right = -0.4000244
+anchor_left = 0.75600004
+anchor_right = 1.0
+anchor_bottom = 0.089
+offset_left = 0.3199463
+offset_right = -2.5999756
+offset_bottom = -0.08000183
 text = "Town Gate"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
-anchor_left = 0.25
-anchor_top = 0.3
-anchor_right = 0.75
-anchor_bottom = 0.7
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=53060357]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.011000001
+anchor_right = 0.5
+anchor_bottom = 0.4
+offset_top = -7.9200006
 size_flags_horizontal = 2
 size_flags_vertical = 2
 
-[node name="WelcomeLabel" type="Label" parent="VBoxContainer"]
+[node name="WelcomeLabel" type="Label" parent="VBoxContainer" unique_id=70421772]
 layout_mode = 2
 size_flags_horizontal = 2
 text = "Welcome to the town!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DescriptionLabel" type="Label" parent="VBoxContainer"]
+[node name="DescriptionLabel" type="Label" parent="VBoxContainer" unique_id=1171030851]
 layout_mode = 2
 size_flags_horizontal = 2
 text = "You have successfully connected to the world. Prepare for your adventure!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="WorldInfoLabel" type="Label" parent="VBoxContainer"]
+[node name="WorldInfoLabel" type="Label" parent="VBoxContainer" unique_id=1097801842]
 layout_mode = 2
 size_flags_horizontal = 2
 text = "World: [World Name]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PlayerCountLabel" type="Label" parent="VBoxContainer"]
+[node name="PlayerCountLabel" type="Label" parent="VBoxContainer" unique_id=1018187313]
 layout_mode = 2
 size_flags_horizontal = 2
 text = "Players in town: [Player Count]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ButtonContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="ButtonContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1882152335]
 layout_mode = 2
 size_flags_horizontal = 2
 
-[node name="EnterTownButton" type="Button" parent="VBoxContainer/ButtonContainer"]
+[node name="EnterTownButton" type="Button" parent="VBoxContainer/ButtonContainer" unique_id=1250316454]
 layout_mode = 2
 size_flags_horizontal = 2
 text = "Enter Town"
 
-[node name="LeaveButton" type="Button" parent="VBoxContainer/ButtonContainer"]
+[node name="LeaveButton" type="Button" parent="VBoxContainer/ButtonContainer" unique_id=1875911682]
 layout_mode = 2
 size_flags_horizontal = 2
 text = "Leave Town"

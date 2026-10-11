@@ -37,7 +37,8 @@ func _on_enter_town_pressed():
 	if char_data != null:
 		print("Character data found for entering town: ", char_data)
 	
-	# Load the main game scene with player
+	# In a real implementation, this would load the actual game world scene
+	# For now, we'll just simulate it with a print statement
 	get_tree().change_scene_to_file("res://main_game.tscn")
 
 func _on_leave_pressed():
