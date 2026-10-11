@@ -88,10 +88,15 @@ func _on_peer_disconnected(id):
 
 @rpc("any_peer", "reliable")
 func add_player_to_lobby(player_id, player_data):
+	print("DEBUG: NetworkManager.add_player_to_lobby called with player_id=" + str(player_id) + ", data=" + str(player_data))
 	if not has_player_in_lobby(player_id):
 		connected_players.append({"id": player_id, "data": player_data})
 		print("Player added to lobby: " + str(player_id))
 		emit_signal("player_joined", player_id, player_data)
+		# Broadcast the updated lobby state to all players
+		broadcast_lobby_state()
+	else:
+		print("Player " + str(player_id) + " already in lobby")
 
 @rpc("any_peer", "reliable")
 func sync_lobby_state(players):
@@ -104,27 +109,61 @@ func broadcast_player_join(player_id, player_data):
 	add_player_to_lobby(player_id, player_data)
 
 func remove_player_from_lobby(player_id):
+	print("DEBUG: NetworkManager.remove_player_from_lobby called with player_id=" + str(player_id))
 	for i in range(connected_players.size()):
 		if connected_players[i].id == player_id:
+			var removed_player = connected_players[i]
 			connected_players.remove_at(i)
 			print("Player removed from lobby: " + str(player_id))
+			emit_signal("player_left", player_id)
+			# Broadcast the updated lobby state to all players
+			broadcast_lobby_state()
 			return true
+	print("Player not found in lobby for removal: " + str(player_id))
 	return false
 
+@rpc("any_peer", "reliable")
+func broadcast_lobby_state():
+	print("DEBUG: Broadcasting lobby state with " + str(connected_players.size()) + " players")
+	for p in connected_players:
+		print("  Player ID: " + str(p.id) + ", Name: " + str(p.data.name) + ", Ready: " + str(p.data.ready))
+	
+	# Broadcast to all connected peers (except the sender)
+	for peer_id in get_peers():
+		if peer_id != get_network_unique_id():
+			rpc_id(peer_id, "sync_lobby_state", connected_players)
+
 func has_player_in_lobby(player_id):
+	print("DEBUG: Checking if player " + str(player_id) + " is in lobby")
 	for p in connected_players:
 		if p.id == player_id:
 			return true
+	print("DEBUG: Player " + str(player_id) + " not found in lobby")
 	return false
+
+func get_player_data(player_id):
+	print("DEBUG: NetworkManager.get_player_data called for player_id=" + str(player_id))
+	for p in connected_players:
+		if p.id == player_id:
+			print("DEBUG: Found player data for " + str(player_id) + ": " + str(p.data))
+			return p.data
+	print("DEBUG: Player data not found for " + str(player_id))
+	return null
 
 @rpc("any_peer", "reliable")
 func set_player_ready(player_id, is_ready):
 	for i in range(connected_players.size()):
 		if connected_players[i].id == player_id:
 			connected_players[i].data.ready = is_ready
-			print("Player " + str(player_id) + " ready status: " + str(is_ready))
 			emit_signal("player_ready_changed", player_id, is_ready)
+			# Also directly broadcast the update to all peers
+			broadcast_player_ready_change(player_id, is_ready)
 			return
+
+@rpc("any_peer", "reliable") 
+func broadcast_player_ready_change(player_id, is_ready):
+	# This function is called by the host to directly notify all peers of ready status changes
+	emit_signal("player_ready_changed", player_id, is_ready)
 
 func get_player_count():
 	return connected_players.size()

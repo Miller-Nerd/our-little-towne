@@ -39,14 +39,16 @@ func start_connection():
 	
 	if success:
 		print("Connection successful!")
-		# Wait for player ID assignment and lobby join
-		await get_tree().create_timer(1.0).timeout
 		
-		# Pass network manager to next scene via meta
+		# Wait for server to fully establish connection and initialize
+		await get_tree().create_timer(2.0).timeout
+		
+		# Make sure character_data is properly passed to lobby scene
 		character_data = get_tree().get_meta("character_data", null)
 		if character_data != null:
 			print("Got character data back: ", character_data)
-			get_tree().set_meta("player_character_data", character_data)
+			# Ensure the data is available in the lobby scene
+			get_tree().set_meta("character_data", character_data)
 		
 		# Navigate to lobby
 		get_tree().change_scene_to_file("res://lobby.tscn")

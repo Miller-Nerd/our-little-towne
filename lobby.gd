@@ -11,60 +11,60 @@ func _ready():
 	# Get the network manager singleton
 	network_manager = get_node("/root/NetworkManager")
 	
+	# Wait for network manager to be fully initialized
+	await get_tree().create_timer(0.1).timeout
+	
 	# Network manager is now an autoload singleton, no need to retrieve from meta
 	my_player_id = network_manager.my_player_id
 	print("Lobby player ID: " + str(my_player_id))
 	
-	# Get character name from scene meta or use default
+	# Get character name from scene meta or use default - add extra debugging
 	var char_data = get_tree().get_meta("character_data", null)
 	print("Character data in lobby:", char_data)
-	if char_data != null and char_data.name != "":
-		character_name = char_data.name
-		print("Using character name from meta: " + character_name)
-	else:
-		# Try to get character name from network manager if available (for host case)
+	
+	# Make sure we have the character data before proceeding
+	if char_data == null:
+		print("WARNING: No character data found in lobby scene meta, trying to get from network manager")
+		# Try to get player data from network manager directly 
 		var player_data = network_manager.get_player_data(my_player_id)
-		if player_data != null and player_data.name != "":
+		if player_data != null:
 			character_name = player_data.name
-			print("Using character name from network manager: " + character_name)
 		else:
+			print("WARNING: No character data found anywhere. Using default name.")
 			character_name = "Player" + str(my_player_id)
-			print("Using default player name: " + character_name)
-	print("Character name in lobby: " + character_name)
+	else:
+		character_name = char_data.name
 	
-	# Connect to network signals
-	network_manager.connect("player_joined", Callable(self, "_on_player_joined"))
-	network_manager.connect("player_left", Callable(self, "_on_player_left"))
-	network_manager.connect("player_ready_changed", Callable(self, "_on_player_ready_changed"))
-	network_manager.connect("game_start_requested", Callable(self, "_on_game_start_requested"))
-	
-	# Initialize lobby display with empty slots
-	update_lobby_display()
-	
-	# Connect the start game button (only visible to host)
-	var start_button = get_node("LobbyContainer/ButtonRow/StartGameButton")
-	if start_button:
-		start_button.connect("pressed", Callable(self, "_on_start_game_pressed"))
-		# Only show Start Game button for host (player ID 1)
-		start_button.visible = (my_player_id == 1)
-	
-	# Connect the leave lobby button
-	var leave_button = get_node("LobbyContainer/ButtonRow/LeaveLobbyButton")
-	if leave_button:
-		leave_button.connect("pressed", Callable(self, "_on_leave_lobby_pressed"))
-	
-	# Connect the ready button
-	var ready_button = get_node("LobbyContainer/ButtonRow/ReadyButton")
-	if ready_button:
-		ready_button.connect("pressed", Callable(self, "_on_ready_button_pressed"))
-	
-	# Connect the confirmation dialog
-	var confirm_dialog = get_node("LeaveConfirmDialog")
-	if confirm_dialog:
-		confirm_dialog.connect("confirmed", Callable(self, "_on_confirm_leave"))
+	print("Character name set to: " + character_name)
 	
 	# Join lobby with character name
-	network_manager.add_player_to_lobby(my_player_id, {"name": character_name, "ready": false})
+	if my_player_id == 1:
+		# Host adds themselves directly since they're the server
+		network_manager.add_player_to_lobby(my_player_id, {"name": character_name, "ready": false})
+		print("Host added themselves to lobby")
+	else:
+		# Clients must use RPC to add themselves to the lobby
+		network_manager.rpc_id(1, "add_player_to_lobby", my_player_id, {"name": character_name, "ready": false})
+		print("Client sent RPC to add themselves to lobby")
+	
+	# Connect signals for lobby updates
+	network_manager.player_joined.connect(_on_player_joined)
+	network_manager.player_left.connect(_on_player_left)
+	network_manager.player_ready_changed.connect(_on_player_ready_changed)
+	network_manager.game_start_requested.connect(_on_game_start_requested)
+	
+	# Update UI immediately after joining
+	print("About to update lobby display from ready function")
+	update_lobby_display()
+	print("Updated lobby display from ready function")
+	
+	# Hide start game button for non-host players (player ID != 1)
+	var start_game_button = get_node("LobbyContainer/ButtonRow/StartGameButton")
+	if start_game_button:
+		print("DEBUG: Setting StartGameButton visibility for player " + str(my_player_id) + ", should be visible only for host (ID=1)")
+		start_game_button.visible = (my_player_id == 1)
+	
+	print("Lobby ready completed, my player ID: " + str(my_player_id))
 
 func _on_start_game_pressed():
 	print("Starting game")
@@ -74,20 +74,21 @@ func _on_start_game_pressed():
 		network_manager.rpc_id(1, "request_game_start")
 
 func _on_ready_button_pressed():
+	print("Ready button pressed, my player ID: " + str(my_player_id))
 	var ready_button = get_node("LobbyContainer/ButtonRow/ReadyButton")
 	is_ready = !is_ready
 	
 	if is_ready:
 		set_my_ready(true)
 		ready_button.text = "I'm Not Ready!"
-		ready_button.add_theme_color_override("normal_bg_color", Color(1, 0.3, 0.3))
 	else:
 		set_my_ready(false)
-		ready_button.text = "I am Ready!"
-		ready_button.add_theme_color_override("normal_bg_color", Color(0.3, 1, 0.3))
+		ready_button.text = "I'm Ready!"
+	
+	print("Ready status changed for player " + str(my_player_id) + " to " + str(is_ready))
 
-func _on_player_joined(player_id, player_data):
-	print("Player joined lobby: " + str(player_id))
+func _on_player_joined(_player_id, _player_data):
+	print("Player joined lobby: " + str(_player_id) + ", data: " + str(_player_data))
 	update_lobby_display()
 
 func _on_player_left(player_id):
@@ -95,36 +96,61 @@ func _on_player_left(player_id):
 	update_lobby_display()
 
 func _on_player_ready_changed(player_id, is_ready):
-	print("Player ready status changed: " + str(player_id) + " -> " + str(is_ready))
+	print("Player ready status changed: " + str(player_id) + " is now " + str(is_ready))
 	update_lobby_display()
 
 func _on_game_start_requested():
-	print("Game starting!")
-	# Wait a moment for all clients to receive the signal
-	await get_tree().create_timer(1.0).timeout
-	get_tree().change_scene_to_file("res://main_game.tscn")
+	print("Game start requested by host")
+	get_tree().change_scene_to_file("res://game.tscn")
 
 func update_lobby_display():
 	# Update the UI to show current players from network manager
 	var connected = network_manager.connected_players
 	
+	print("DEBUG: Updating lobby display, connected players count: " + str(connected.size()))
+	
+	# Loop through all player slots (1-8)
 	for i in range(1, max_players + 1):
-		var slot_node = get_node("LobbyContainer/PlayerList/PlayerSlot" + str(i))
-		var player_name_label = get_node("LobbyContainer/PlayerList/PlayerSlot" + str(i) + "/PlayerInfo" + str(i) + "/PlayerName" + str(i))
-		var player_status_label = get_node("LobbyContainer/PlayerList/PlayerSlot" + str(i) + "/PlayerInfo" + str(i) + "/PlayerStatus" + str(i))
+		var slot_node = null
+		var player_name_label = null
+		var player_status_label = null
 		
+		# Try to find the nodes with proper error handling using find_child
+		try:
+			slot_node = find_child("PlayerSlot" + str(i), true)
+			if slot_node:
+				player_name_label = find_child("PlayerName" + str(i), true)
+				player_status_label = find_child("PlayerStatus" + str(i), true)
+			else:
+				print("DEBUG: Could not find PlayerSlot" + str(i))
+		except:
+			print("DEBUG: Error finding nodes for player slot " + str(i))
+			continue
+		
+		# Check if there's a player in this slot position (i-1 because array is 0-indexed)
 		if i <= connected.size():
 			var player = connected[i-1]
+			print("DEBUG: Player " + str(i) + " data: " + str(player))
 			slot_node.visible = true
 			if player_name_label:
-				player_name_label.text = player.data.name
+				player_name_label.text = player.data.name if player.data.has("name") else "Unknown"
 			if player_status_label:
 				player_status_label.text = "Ready" if player.data.ready else "Not Ready"
 		else:
-			slot_node.visible = false
+			# Hide the slot if no player is in this position
+			if slot_node:
+				slot_node.visible = false
 
 func set_my_ready(is_ready):
-	network_manager.set_player_ready(my_player_id, is_ready)
+	print("set_my_ready called with is_ready=" + str(is_ready) + ", my_player_id=" + str(my_player_id))
+	# Send ready status change to host (player 1) via RPC, but only if we're not the host
+	if my_player_id != 1:
+		print("Sending RPC to host for player " + str(my_player_id))
+		network_manager.rpc_id(1, "set_player_ready", my_player_id, is_ready)
+	else:
+		# If we are the host, handle directly - no RPC needed
+		print("Host handling ready status directly for player " + str(my_player_id))
+		network_manager.set_player_ready(my_player_id, is_ready)
 
 func _on_leave_lobby_pressed():
 	var confirm_dialog = get_node("LeaveConfirmDialog")

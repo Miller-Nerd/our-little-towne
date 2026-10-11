@@ -74,7 +74,12 @@ func _on_timer_timeout():
 
 func _on_host_complete():
 	var network_manager = get_node("/root/NetworkManager")
-	network_manager.start_server(port)
+	var success = network_manager.start_server(port)
+	
+	# Only proceed if server started successfully
+	if not success:
+		print("Failed to start server!")
+		return
 	
 	# Pass character data to lobby scene for host player
 	var char_data = get_tree().get_meta("character_data", null)
