@@ -90,10 +90,10 @@ func _on_host_complete():
 	
 	# If still not found, try the more direct approach
 	if network_manager == null:
-		try:
-			network_manager = get_node("/NetworkManager")
-		except:
-			pass
+		# Use a safe approach that doesn't rely on try/except which isn't supported in GDScript
+		var node_path = "/NetworkManager"
+		if get_tree().has_node(node_path):
+			network_manager = get_node(node_path)
 	
 	# If we still haven't found it, we need to check if it's even available in this context
 	if network_manager == null:
