@@ -73,6 +73,7 @@ func _on_timer_timeout():
 		timer.start()
 
 func _on_host_complete():
+	# Access NetworkManager via get_node with explicit path (should work with autoload)
 	var network_manager = get_node("/root/NetworkManager")
 	var success = network_manager.start_server(port)
 	
@@ -81,14 +82,14 @@ func _on_host_complete():
 		print("Failed to start server!")
 		return
 	
-	# Pass character data to lobby scene for host player
+	# Pass character data to town gate scene for host player
 	var char_data = get_tree().get_meta("character_data", null)
 	print("Character data in lobby_launch_attempt: ", char_data)
 	if char_data != null:
 		get_tree().set_meta("character_data", char_data)
-		print("Set character data in meta for lobby")
+		print("Set character data in meta for town gate")
 	
-	get_tree().change_scene_to_file("res://lobby.tscn")
+	get_tree().change_scene_to_file("res://town_gate.tscn")
 
 func _on_cancel_pressed():
 	# Return to main menu

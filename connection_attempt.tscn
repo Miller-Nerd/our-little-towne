@@ -1,16 +1,19 @@
 [gd_scene format=3 uid="uid://fpifbulmkjwr"]
 
 [ext_resource type="Script" uid="uid://cqyhoa2g7kq0f" path="res://connection_attempt.gd" id="1"]
+[ext_resource type="Script" uid="uid://d456789012345" path="res://network_manager.gd" id="2_1"]
 [ext_resource type="LabelSettings" uid="uid://cgi1vydqjrur2" path="res://new_label_settings.tres" id="2_gvdg5"]
 
 [node name="ConnectionAttempt" type="Control" unique_id=1803447360]
 layout_mode = 3
 anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 1.0
+anchor_top = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1")
+
+
 
 [node name="TitleLabel" type="Label" parent="." unique_id=340869756]
 layout_mode = 1

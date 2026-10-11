@@ -2,7 +2,6 @@ extends Control
 
 var target_ip = "127.0.0.1"
 var target_port = 7000
-var network_manager = null
 
 func _ready():
 	print("Connection attempt scene loaded")
@@ -16,9 +15,6 @@ func _ready():
 	if cancel_button:
 		cancel_button.connect("pressed", Callable(self, "_on_cancel_pressed"))
 	
-	# Get the network manager singleton
-	network_manager = get_node("/root/NetworkManager")
-	
 	start_connection()
 
 func start_connection():
@@ -29,32 +25,47 @@ func start_connection():
 	if status_label:
 		status_label.text = "Connecting to server..."
 	
-	# Attempt actual network connection with character data
+	# Create ENetMultiplayerPeer directly for client connection
+	var peer = ENetMultiplayerPeer.new()
+	var err = peer.create_client(target_ip, target_port)
+	if err != OK:
+		print("Failed to create client: " + str(err))
+		show_connection_failed_popup()
+		return
+	
+	multiplayer.multiplayer_peer = peer
+	
+	# Wait for connection to be established
+	var timeout = 3.0
+	while timeout > 0 and (peer.get_connection_status() != ENetMultiplayerPeer.CONNECTION_CONNECTED):
+		await get_tree().create_timer(0.1).timeout
+		timeout -= 0.1
+	
+	if peer.get_connection_status() != ENetMultiplayerPeer.CONNECTION_CONNECTED:
+		print("Connection timed out")
+		show_connection_failed_popup()
+		return
+	
+	print("Connection successful!")
+	
+	# Wait a bit for connection to fully establish
+	await get_tree().create_timer(1.0).timeout
+	
+	# Attempt to connect with character data
 	var character_data = get_tree().get_meta("character_data", null)
-	var player_info = {"name": "Player" + str(1), "ready": false}
+	var player_info = {"name": "Player" + str(multiplayer.get_unique_id()), "ready": false}
 	if character_data != null:
 		player_info.name = character_data.name
 	
-	var success = await get_node("/root/NetworkManager").connect_to_server(target_ip, target_port, player_info)
+	# Make sure character_data is properly passed to lobby scene
+	character_data = get_tree().get_meta("character_data", null)
+	if character_data != null:
+		print("Got character data back: ", character_data)
+		# Ensure the data is available in the lobby scene
+		get_tree().set_meta("character_data", character_data)
 	
-	if success:
-		print("Connection successful!")
-		
-		# Wait for server to fully establish connection and initialize
-		await get_tree().create_timer(2.0).timeout
-		
-		# Make sure character_data is properly passed to lobby scene
-		character_data = get_tree().get_meta("character_data", null)
-		if character_data != null:
-			print("Got character data back: ", character_data)
-			# Ensure the data is available in the lobby scene
-			get_tree().set_meta("character_data", character_data)
-		
-		# Navigate to lobby
-		get_tree().change_scene_to_file("res://lobby.tscn")
-	else:
-		print("Connection failed!")
-		show_connection_failed_popup()
+	# Navigate to town gate instead of lobby
+	get_tree().change_scene_to_file("res://town_gate.tscn")
 
 func show_connection_failed_popup():
 	var popup = PanelContainer.new()
@@ -90,5 +101,8 @@ func _on_error_ok_pressed():
 
 func _on_cancel_pressed():
 	print("Connection cancelled by user")
-	network_manager.cleanup()
+	# Clean up the multiplayer peer
+	if multiplayer.multiplayer_peer != null:
+		multiplayer.multiplayer_peer.close()
+		multiplayer.multiplayer_peer = null
 	get_tree().change_scene_to_file("res://main_menu.tscn")

@@ -129,8 +129,8 @@ func broadcast_lobby_state():
 		print("  Player ID: " + str(p.id) + ", Name: " + str(p.data.name) + ", Ready: " + str(p.data.ready))
 	
 	# Broadcast to all connected peers (except the sender)
-	for peer_id in get_peers():
-		if peer_id != get_network_unique_id():
+	for peer_id in multiplayer.get_peers():
+		if peer_id != multiplayer.get_unique_id():
 			rpc_id(peer_id, "sync_lobby_state", connected_players)
 
 func has_player_in_lobby(player_id):
