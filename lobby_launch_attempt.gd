@@ -81,11 +81,21 @@ func _on_host_complete():
 	if autoload_path != null and autoload_path != "":
 		print("NetworkManager is properly configured as autoload at: ", autoload_path)
 	
-	# Method 1: Try direct access (most reliable method for autoloads)
-	# Use a direct approach that should work with autoloads
-	network_manager = get_node("/NetworkManager")
+	# Method 1: Try to get it from the root node directly using the proper path
+	# This should work in most cases for autoloads
+	var root = get_tree().root
+	if root != null:
+		if root.has_node("NetworkManager"):
+			network_manager = root.get_node("NetworkManager")
 	
-	# If we got here without error, network_manager should be set
+	# If still not found, try the more direct approach
+	if network_manager == null:
+		try:
+			network_manager = get_node("/NetworkManager")
+		except:
+			pass
+	
+	# If we still haven't found it, we need to check if it's even available in this context
 	if network_manager == null:
 		print("ERROR: Could not access NetworkManager. Make sure it is properly configured as an autoload in project settings.")
 		print("This may be due to timing issues with scene initialization or autoload loading.")
