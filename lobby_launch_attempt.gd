@@ -73,8 +73,24 @@ func _on_timer_timeout():
 		timer.start()
 
 func _on_host_complete():
-	# Access NetworkManager via get_node with explicit path (should work with autoload)
-	var network_manager = get_node("/root/NetworkManager")
+	# Try to get NetworkManager using the standard approach for autoloads
+	var network_manager = null
+	
+	# Use ProjectSettings to verify autoload is configured, then try direct access
+	var autoload_path = ProjectSettings.get_setting("autoload/NetworkManager")
+	if autoload_path != null and autoload_path != "":
+		print("NetworkManager is properly configured as autoload at: ", autoload_path)
+	
+	# Method 1: Try direct access (most reliable method for autoloads)
+	# Use a direct approach that should work with autoloads
+	network_manager = get_node("/NetworkManager")
+	
+	# If we got here without error, network_manager should be set
+	if network_manager == null:
+		print("ERROR: Could not access NetworkManager. Make sure it is properly configured as an autoload in project settings.")
+		print("This may be due to timing issues with scene initialization or autoload loading.")
+		return
+	
 	var success = network_manager.start_server(port)
 	
 	# Only proceed if server started successfully

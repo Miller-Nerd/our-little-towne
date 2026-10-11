@@ -46,7 +46,18 @@ func _on_leave_pressed():
 	print("Leaving town...")
 	
 	# Clean up network resources before leaving
-	var network_manager = get_node("/root/NetworkManager")
+	var network_manager = null
+	
+	# Try different methods to get the NetworkManager instance
+	if get_tree().has_node("/NetworkManager"):
+		network_manager = get_node("/NetworkManager")
+	
+	# Method 2: Try getting it from the root node directly  
+	if network_manager == null:
+		var root = get_tree().root
+		if root != null and root.has_node("NetworkManager"):
+			network_manager = root.get_node("NetworkManager")
+	
 	if network_manager != null:
 		network_manager.cleanup()
 	

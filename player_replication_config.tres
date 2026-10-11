@@ -1,0 +1,8 @@
+[gd_resource type="SceneReplicationConfig" format=2 uid="uid://player_replication_config"]
+
+[ext_resource type="Script" path="res://player.gd" id="1"]
+
+[resource]
+sync_mode = 0
+sync_properties = ["position"]
+sync_methods = []
