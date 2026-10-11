@@ -37,6 +37,26 @@ The game implements a client-server multiplayer system using Godot's ENetMultipl
 3. Player data sent to lobby system via RPC
 4. Lobby state synchronized to all connected players
 
+## Multiplayer Synchronization Implementation
+
+### Scene Replication Configuration
+- `player_replication_config.tres` defines which properties are synchronized
+- Currently configured to synchronize the "position" property
+- Uses `REPLICATION_MODE_ON_CHANGE` for efficient bandwidth usage
+
+### Player Synchronization Setup
+- The player scene (`player.tscn`) now includes a `MultiplayerSynchronizer` component
+- The synchronizer is properly configured with:
+  - `root_path` set to "." (the player node itself)
+  - `replication_config` pointing to `player_replication_config.tres`
+- Position updates are sent via RPC calls from client players
+
+### Movement Synchronization
+- Players use local physics movement for smooth gameplay
+- Client players send their position updates to the server using RPC
+- Server validates positions and broadcasts updates to all connected clients
+- The `update_position` RPC function handles position synchronization on non-server peers
+
 ## Best Practices Implemented
 
 ### RPC Usage

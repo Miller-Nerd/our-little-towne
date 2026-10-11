@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @export var speed = 400
+var is_server = false
 
 func _ready():
 	# Set up input actions for WASD movement
@@ -31,11 +32,26 @@ func _ready():
 	var down_event = InputEventKey.new()
 	down_event.keycode = KEY_S
 	InputMap.action_add_event("move_down", down_event)
+	
+	# Check if this is the server instance
+	is_server = multiplayer.is_server()
 
 func _physics_process(delta):
-	get_input()
-	move_and_slide()
+	if not is_server:
+		get_input()
+		move_and_slide()
+	else:
+		# Server handles movement and broadcasts updates
+		get_input()
+		move_and_slide()
+		# Send position update to all other players
+		rpc("update_position", position)
 
 func get_input():
 	var input_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	velocity = input_direction * speed
+
+@rpc("any_peer", "reliable")
+func update_position(new_position):
+	if not is_server:
+		position = new_position

@@ -97,6 +97,11 @@ func add_player_to_lobby(player_id, player_data):
 		broadcast_lobby_state()
 	else:
 		print("Player " + str(player_id) + " already in lobby")
+	
+	# If this is the host/server, spawn the player in the game scene when they join
+	if is_server and multiplayer.get_unique_id() == 1:
+		print("Server spawning player " + str(player_id) + " in game")
+		rpc("spawn_player_in_game", player_id, player_data)
 
 @rpc("any_peer", "reliable")
 func sync_lobby_state(players):
@@ -183,3 +188,33 @@ func cleanup():
 	if peer != null:
 		peer.close()
 		multiplayer.multiplayer_peer = null
+
+# New function to handle spawning players when they join the game
+@rpc("any_peer", "reliable")
+func spawn_player_in_game(player_id, player_data):
+	# This function is called by the server to tell all clients to spawn a new player
+	print("Received spawn_player_in_game RPC for player ID: " + str(player_id))
+	
+	# Only spawn on client side (not server)
+	if multiplayer.is_server():
+		return
+	
+	# In a proper implementation, we would use Godot's MultiplayerSpawner system
+	# For now, let's just print that spawning is handled by the multiplayer system
+	print("Player spawning will be handled automatically by Godot's multiplayer system")
+	
+	# Let's try to manually spawn if needed - this is for debugging purposes
+	var spawner = get_node_or_null("MultiplayerSpawner")
+	if spawner != null:
+		print("Found MultiplayerSpawner, attempting to spawn player...")
+		# This might not work as expected in all cases, but let's try it
+		var player_scene = preload("res://player.tscn")
+		if player_scene != null:
+			var player = player_scene.instantiate()
+			# Add the player to the scene - this needs to be done properly
+			add_child(player)
+			print("Player instantiated manually for debugging")
+		else:
+			print("Could not load player scene for manual instantiation")
+	else:
+		print("MultiplayerSpawner not found in current scene")
