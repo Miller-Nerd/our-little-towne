@@ -1,32 +1,37 @@
-extends CharacterBody2D
+extends Node2D
+## A visual avatar. The server owns movement; this node only smooths snapshots.
 
-@export var speed = 400
+var target_position := Vector2.ZERO
+var tint := Color.WHITE
+var is_local := false
 
-func _ready():
-	_ensure_key_action("move_left", KEY_A)
-	_ensure_key_action("move_right", KEY_D)
-	_ensure_key_action("move_up", KEY_W)
-	_ensure_key_action("move_down", KEY_S)
+@onready var name_label: Label = $NameLabel
 
-func _ensure_key_action(action_name: String, keycode: Key):
-	if not InputMap.has_action(action_name):
-		InputMap.add_action(action_name)
 
-	for event in InputMap.action_get_events(action_name):
-		if event is InputEventKey and event.keycode == keycode:
-			return
+func configure(state: Dictionary, local: bool) -> void:
+	tint = state.color
+	is_local = local
+	target_position = state.position
+	position = target_position
 
-	var key_event = InputEventKey.new()
-	key_event.keycode = keycode
-	InputMap.action_add_event(action_name, key_event)
 
-func _physics_process(_delta):
-	if not is_multiplayer_authority():
-		return
+func _ready() -> void:
+	queue_redraw()
 
-	get_input()
-	move_and_slide()
 
-func get_input():
-	var input_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	velocity = input_direction * speed
+func update_state(state: Dictionary) -> void:
+	target_position = state.position
+	name_label.text = "%s%s" % [state.name, " (you)" if is_local else ""]
+
+
+func _process(delta: float) -> void:
+	position = position.lerp(target_position, 1.0 - exp(-25.0 * delta))
+
+
+func _draw() -> void:
+	draw_circle(Vector2(0, 5), 19, Color(0, 0, 0, 0.2))
+	draw_circle(Vector2.ZERO, NetworkManager.PLAYER_RADIUS, tint)
+	draw_circle(Vector2(-5, -3), 2, Color("233c35"))
+	draw_circle(Vector2(5, -3), 2, Color("233c35"))
+	if is_local:
+		draw_arc(Vector2.ZERO, 22, 0, TAU, 48, Color.WHITE, 2, true)
